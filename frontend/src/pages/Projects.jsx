@@ -13,14 +13,19 @@ const CATEGORIES = [
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     projectsAPI.list().then(res => setProjects(res.data));
   }, []);
 
-  const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(p => p.category === activeCategory);
+  const filteredProjects = projects.filter(p => {
+    const matchesCategory = activeCategory === 'all' || p.category === activeCategory;
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          p.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          p.services_used.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="pt-24 bg-white dark:bg-slate-950 min-h-screen">
@@ -34,7 +39,7 @@ const Projects = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-6">
           {CATEGORIES.map(cat => (
             <button
               key={cat.value}
@@ -48,6 +53,17 @@ const Projects = () => {
               {cat.label}
             </button>
           ))}
+        </div>
+
+        {/* Search Bar Input */}
+        <div className="max-w-md mx-auto mb-12">
+          <input
+            type="text"
+            placeholder="Search projects by name, location, or services..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full text-xs px-4 py-2.5 border rounded-lg dark:bg-slate-900 dark:border-slate-800 focus:outline-none focus:ring-1 focus:ring-gold"
+          />
         </div>
 
         {/* Projects Grid */}

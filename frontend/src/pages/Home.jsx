@@ -403,7 +403,52 @@ const Home = () => {
         </section>
       )}
 
-      {/* 8. FAQ Accordion Section */}
+      {/* 8. Google Reviews Section */}
+      <section className="py-16 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            <div className="text-center md:text-left">
+              <span className="text-xs font-extrabold text-gold uppercase tracking-widest font-bold">Verified Feedback</span>
+              <h2 className="text-2xl md:text-3xl font-bold font-serif text-primary dark:text-white mt-1">Google Local Business Reviews</h2>
+            </div>
+            {/* Google Rating Summary Card */}
+            <div className="flex items-center space-x-4 bg-slate-50 dark:bg-slate-900 px-6 py-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm shrink-0">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-slate-800 dark:text-white">4.9</p>
+                <div className="text-yellow-400 text-xs">★★★★★</div>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">154 reviews</p>
+              </div>
+              <div className="border-l border-slate-200 dark:border-slate-700 pl-4">
+                <span className="font-serif font-extrabold text-slate-600 dark:text-slate-350 text-base">Google</span>
+                <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Customer Rating</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Grid of Google Reviews */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs leading-relaxed">
+            {[
+              { name: "Dr. Sandeep Kurup", time: "2 weeks ago", text: "Abacus Homes delivered my dream villa exactly as visualized. Excellent quality and finishes.", rating: 5 },
+              { name: "Arun Kumar", time: "1 month ago", text: "Extremely professional, they handled all municipal building permit paperwork and licensing smoothly.", rating: 5 },
+              { name: "Meera Nair", time: "3 months ago", text: "The interior design team designed our modular kitchen and woodwork beautifully. 10/10 service.", rating: 5 }
+            ].map((rev, i) => (
+              <div key={i} className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm relative pb-10">
+                <div className="flex justify-between items-center mb-3">
+                  <div>
+                    <h4 className="font-bold text-slate-850 dark:text-slate-200">{rev.name}</h4>
+                    <span className="text-[10px] text-slate-400">{rev.time}</span>
+                  </div>
+                  <div className="text-yellow-400">{'★'.repeat(rev.rating)}</div>
+                </div>
+                <p className="text-slate-500 dark:text-slate-400 italic">"{rev.text}"</p>
+                <div className="absolute bottom-4 right-6 text-[11px] font-bold text-slate-300 dark:text-slate-700 font-serif opacity-40 select-none">Google</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. FAQ Accordion Section */}
       <section className="py-20 bg-slate-50 dark:bg-slate-900/30">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-16">

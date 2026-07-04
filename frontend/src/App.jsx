@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
+import { Loader2 } from 'lucide-react';
 
 // Pages
 import Home from './pages/Home';
@@ -37,6 +38,35 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const [siteLoading, setSiteLoading] = useState(true);
+  const [cookieConsent, setCookieConsent] = useState(() => {
+    return localStorage.getItem('cookie_consent') === 'true';
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSiteLoading(false);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleAcceptCookies = () => {
+    localStorage.setItem('cookie_consent', 'true');
+    setCookieConsent(true);
+  };
+
+  if (siteLoading) {
+    return (
+      <div className="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center z-50">
+        <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center font-serif text-primary text-2xl font-bold border border-gold shadow-2xl animate-pulse mb-4">
+          A
+        </div>
+        <p className="font-serif text-white tracking-widest uppercase text-sm font-bold">ABACUS<span className="text-gold"> HOMES</span></p>
+        <Loader2 className="w-5 h-5 text-gold animate-spin mt-4" />
+      </div>
+    );
+  }
+
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -76,11 +106,30 @@ function App() {
 
             {/* Floating Overlays */}
             <FloatingWidgets />
+
+            {/* Cookie Consent banner */}
+            {!cookieConsent && (
+              <div className="fixed bottom-0 left-0 w-full bg-slate-900 dark:bg-slate-950 border-t border-slate-800 p-4 text-white z-50 flex flex-col sm:flex-row justify-between items-center px-6 sm:px-12 gap-4">
+                <p className="text-xs text-slate-300 max-w-2xl text-center sm:text-left leading-relaxed">
+                  We use cookies to analyze website traffic and optimize your user experience. By accepting our use of cookies, your data will be aggregated with all other user data.
+                </p>
+                <div className="flex space-x-3 shrink-0">
+                  <Link to="/privacy" className="px-4 py-2 border border-slate-700 hover:border-slate-500 rounded text-xs font-bold uppercase tracking-wider text-slate-350">Privacy Details</Link>
+                  <button 
+                    onClick={handleAcceptCookies}
+                    className="px-5 py-2 bg-gold hover:bg-gold-dark text-white font-bold text-xs uppercase tracking-wider rounded transition-colors shadow"
+                  >
+                    Accept Cookies
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </Router>
       </AuthProvider>
     </ThemeProvider>
   );
 }
+
 
 export default App;
