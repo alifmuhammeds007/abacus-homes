@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Building, UserCheck, HardHat, FileText, CheckCircle2, ChevronRight,
   Shield, DollarSign, Users, Award, Hammer, Clock, Lightbulb, UserRound,
-  MessageSquare, ChevronLeft, HelpCircle
+  MessageSquare, ChevronLeft, HelpCircle, Phone
 } from 'lucide-react';
 import { servicesAPI, testimonialsAPI } from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
+
 
 const HERO_SLIDES = [
   {
@@ -95,6 +97,7 @@ const CounterItem = ({ targetValue, label, suffix = "" }) => {
 };
 
 const Home = () => {
+  const { language, t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [services, setServices] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
@@ -156,15 +159,19 @@ const Home = () => {
               className="max-w-2xl text-white"
             >
               <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight font-serif text-white mb-2 uppercase leading-none">
-                {HERO_SLIDES[currentSlide].title}
+                {currentSlide === 0 ? "ABACUS HOMES" : HERO_SLIDES[currentSlide].title}
               </h1>
-              <p className="text-lg sm:text-xl font-bold text-gold mb-6">
-                "{HERO_SLIDES[currentSlide].subtitle}"
+              <p className="text-lg sm:text-xl font-bold text-gold mb-6 font-serif">
+                {currentSlide === 0 ? `"${t('tagline')}"` : `"${HERO_SLIDES[currentSlide].subtitle}"`}
               </p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-3 mb-8">
-                {HERO_SLIDES[currentSlide].tags.map((tag, i) => (
+                {(currentSlide === 0 && language === 'ml') ? ['ഡിസൈൻ', 'പ്ലാൻ', 'നിർമ്മാണം', 'കൈമാറൽ'].map((tag, i) => (
+                  <span key={i} className="text-xs font-extrabold uppercase tracking-widest bg-construction/80 border border-gold/30 px-3 py-1.5 rounded-full">
+                    {tag}
+                  </span>
+                )) : HERO_SLIDES[currentSlide].tags.map((tag, i) => (
                   <span key={i} className="text-xs font-extrabold uppercase tracking-widest bg-construction/80 border border-gold/30 px-3 py-1.5 rounded-full">
                     {tag}
                   </span>
@@ -174,13 +181,13 @@ const Home = () => {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/consultation" className="px-6 py-3.5 bg-gold hover:bg-gold-dark text-white font-bold rounded-lg shadow-lg text-center uppercase tracking-wider text-sm transition-all hover:-translate-y-0.5">
-                  Get Free Consultation
+                  {t('consultation')}
                 </Link>
                 <Link to="/projects" className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-lg border border-white/30 text-center uppercase tracking-wider text-sm backdrop-blur transition-all hover:-translate-y-0.5">
-                  View Projects
+                  {t('viewProjects')}
                 </Link>
                 <a href="tel:+919876543210" className="px-6 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg border border-gold text-center uppercase tracking-wider text-sm transition-all hover:-translate-y-0.5 flex items-center justify-center">
-                  <Phone className="w-4 h-4 mr-2" /> Call Now
+                  <Phone className="w-4 h-4 mr-2" /> {t('callNow')}
                 </a>
               </div>
             </motion.div>
@@ -328,6 +335,75 @@ const Home = () => {
         </div>
       </section>
 
+      {/* 5b. Ongoing Projects Section */}
+      <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-xl mx-auto mb-16">
+            <span className="text-xs font-extrabold text-gold uppercase tracking-widest font-bold">Track Development</span>
+            <h2 className="text-3xl md:text-4xl font-bold font-serif text-primary dark:text-white mt-2">Active Site Progress Logs</h2>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-2">Real-time status updates from our active civil construction zones.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Abacus Luxury Villa #12",
+                location: "Kochi, Kerala",
+                image: "https://images.unsplash.com/photo-1541976590-713941fbc796?auto=format&fit=crop&w=600&q=80",
+                progress: 70,
+                expected: "December 2026",
+                stage: "Roof Slab Casting"
+              },
+              {
+                title: "Commercial Retail Hub",
+                location: "Kalyan Nagar, Bangalore",
+                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+                progress: 45,
+                expected: "April 2027",
+                stage: "Structural Framework"
+              },
+              {
+                title: "Minimalist Duplex Estate",
+                location: "Trivandrum, Kerala",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
+                progress: 90,
+                expected: "October 2026",
+                stage: "Interior Plastering & Wiring"
+              }
+            ].map((proj, idx) => (
+              <div key={idx} className="bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-100/60 dark:border-slate-800 shadow-premium">
+                <div className="h-48 overflow-hidden relative">
+                  <img src={proj.image} alt={proj.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  <span className="absolute bottom-4 left-4 bg-slate-900/80 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                    {proj.location}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-base font-bold text-primary dark:text-white font-serif mb-1">{proj.title}</h3>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-4">Stage: {proj.stage}</p>
+                  
+                  {/* Progress Bar */}
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-605 dark:text-slate-300 mb-1">
+                      <span>Progress</span>
+                      <span className="text-gold">{proj.progress}%</span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-200 dark:bg-slate-850 rounded-full overflow-hidden">
+                      <div className="h-full bg-gold transition-all duration-1000" style={{ width: `${proj.progress}%` }}></div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-widest border-t pt-4">
+                    <span>Expected Completion</span>
+                    <span className="text-slate-800 dark:text-slate-200">{proj.expected}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 6. Why Choose Us */}
       <section className="py-20 bg-slate-50 dark:bg-slate-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -442,6 +518,36 @@ const Home = () => {
                 </div>
                 <p className="text-slate-500 dark:text-slate-400 italic">"{rev.text}"</p>
                 <div className="absolute bottom-4 right-6 text-[11px] font-bold text-slate-300 dark:text-slate-700 font-serif opacity-40 select-none">Google</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8b. Materials We Use Section */}
+      <section className="py-16 bg-slate-50 dark:bg-slate-900/20 border-b border-slate-100 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-extrabold text-gold uppercase tracking-widest font-bold">Trusted Sourcing</span>
+            <h2 className="text-2xl md:text-3xl font-bold font-serif text-primary dark:text-white mt-1">Premium Materials We Use</h2>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+            {[
+              { brand: "UltraTech Cement", type: "Core Civil Concrete" },
+              { brand: "ACC Cement", type: "Plastering & Masonry" },
+              { brand: "Tata Steel", type: "TMT Reinforcements" },
+              { brand: "Kajaria Tiles", type: "Premium Floor Finishes" },
+              { brand: "Asian Paints", type: "Luxury Paint Finishes" },
+              { brand: "Crompton", type: "Pumps & Ventilation" },
+              { brand: "Havells", type: "Smart Switches & MCBs" },
+              { brand: "V-Guard", type: "Heavy-Duty Cabling" },
+              { brand: "Jaquar", type: "Premium Sanitary Fixtures" },
+              { brand: "Cera", type: "Bathroom Elements" }
+            ].map((mat, i) => (
+              <div key={i} className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-center items-center">
+                <span className="font-serif font-extrabold text-sm text-primary dark:text-slate-200">{mat.brand}</span>
+                <p className="text-[9px] text-slate-405 font-bold uppercase tracking-widest mt-1">{mat.type}</p>
               </div>
             ))}
           </div>

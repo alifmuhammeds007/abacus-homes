@@ -13,6 +13,7 @@ const ClientDashboard = () => {
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('notes');
   
   // Chat simulator state
   const [chatMessages, setChatMessages] = useState([
@@ -141,6 +142,119 @@ const ClientDashboard = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Expanded Features: Tabs for Receipts, Material Reports, Visit Schedules & Engineer Notes */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-premium">
+              {/* Tab Navigation Headers */}
+              <div className="flex border-b border-slate-150 dark:border-slate-800 pb-3 flex-wrap gap-2 text-xs font-bold uppercase tracking-wider mb-6">
+                {[
+                  { value: 'notes', label: 'Engineer Notes' },
+                  { value: 'receipts', label: 'Verified Receipts' },
+                  { value: 'materials', label: 'Material Reports' },
+                  { value: 'schedule', label: 'Site Visits' }
+                ].map(tab => (
+                  <button
+                    key={tab.value}
+                    onClick={() => setActiveTab(tab.value)}
+                    className={`px-4 py-2 rounded-lg transition-all ${
+                      activeTab === tab.value
+                        ? 'bg-gold text-white shadow-sm'
+                        : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tab content renders */}
+              <div className="text-xs leading-relaxed text-slate-650 dark:text-slate-350">
+                {activeTab === 'notes' && (
+                  <div className="space-y-4">
+                    {[
+                      { date: "July 02, 2026", engineer: "Er. Rahul Nair (Site Engineer)", note: "Concrete slump test completed for the first floor roof slab. Verified alignment and curing covers." },
+                      { date: "June 25, 2026", engineer: "Er. Vivek Sen (Project Manager)", note: "Electrical conduits mapping approved. Ground floor plumbing lines leakage test passed." }
+                    ].map((n, i) => (
+                      <div key={i} className="bg-slate-50 dark:bg-slate-900/40 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                        <div className="flex justify-between items-center mb-1.5 font-bold">
+                          <span className="text-slate-800 dark:text-slate-200">{n.engineer}</span>
+                          <span className="text-[9px] text-slate-400">{n.date}</span>
+                        </div>
+                        <p className="text-slate-500 dark:text-slate-400 italic">"{n.note}"</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === 'receipts' && (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-slate-150 dark:border-slate-800 font-bold uppercase tracking-widest text-[9px] text-slate-400">
+                          <th className="py-2.5">Transaction ID</th>
+                          <th className="py-2.5">Date</th>
+                          <th className="py-2.5">Milestone Description</th>
+                          <th className="py-2.5 text-right">Amount Paid</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-850">
+                        {[
+                          { tx: "TXN87654321", date: "April 15, 2026", desc: "Initial Design & Booking Advance", amt: "Rs. 1,00,000" },
+                          { tx: "TXN87659902", date: "May 20, 2026", desc: "Foundation & Plinth Concrete Work", amt: "Rs. 3,50,000" }
+                        ].map((rec, i) => (
+                          <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/10">
+                            <td className="py-2.5 font-mono text-[10px]">{rec.tx}</td>
+                            <td className="py-2.5 text-slate-500">{rec.date}</td>
+                            <td className="py-2.5 font-bold text-primary dark:text-slate-200">{rec.desc}</td>
+                            <td className="py-2.5 text-right font-bold text-green-600 dark:text-green-500">{rec.amt}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {activeTab === 'materials' && (
+                  <div className="space-y-3">
+                    {[
+                      { doc: "UltraTech Cement M25 Grade Strength Report", date: "June 18, 2026", type: "Cube Compression Test" },
+                      { doc: "Tata Steel TMT Fe 550 Grade Tensile Certification", date: "May 10, 2026", type: "Metallurgical Audit" }
+                    ].map((rep, i) => (
+                      <div key={i} className="flex justify-between items-center p-3 border rounded-xl border-slate-150 dark:border-slate-800">
+                        <div>
+                          <h4 className="font-bold text-slate-800 dark:text-slate-200">{rep.doc}</h4>
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{rep.type} • {rep.date}</span>
+                        </div>
+                        <button onClick={() => alert(`Downloading Quality Report: ${rep.doc}`)} className="p-2 bg-slate-100 dark:bg-slate-800 rounded hover:bg-gold hover:text-white transition-all">
+                          <Download className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === 'schedule' && (
+                  <div className="space-y-4">
+                    {[
+                      { date: "July 12, 2026 (10:30 AM)", inspector: "Chief Architect (Site Visit Audit)", type: "Room Layout Dimension Verification" },
+                      { date: "July 24, 2026 (02:00 PM)", inspector: "Structural Engineer (Lintel Concrete Check)", type: "Iron Reinforcement Rebar Bind check" }
+                    ].map((sc, i) => (
+                      <div key={i} className="flex items-start bg-slate-50 dark:bg-slate-900/40 p-4 rounded-xl border border-slate-150 dark:border-slate-800">
+                        <div className="mr-4 text-center">
+                          <span className="text-xs font-serif font-extrabold text-gold">STAGE</span>
+                          <div className="text-lg font-bold text-primary dark:text-white mt-1">0{i+1}</div>
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-slate-800 dark:text-slate-200">{sc.inspector}</h4>
+                          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{sc.type}</p>
+                          <span className="inline-block mt-2 px-2 py-0.5 bg-gold/10 text-gold rounded font-bold text-[9px]">{sc.date}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

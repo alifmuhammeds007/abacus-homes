@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import { Menu, X, Sun, Moon, ChevronDown, User, Calculator, ShieldCheck, Ruler, Home, Building, Search, Calendar, Download } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { Menu, X, Sun, Moon, ChevronDown, User, Calculator, ShieldCheck, Ruler, Home, Building, Search, Calendar, Download, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { user, logout } = useAuth();
+  const { language, toggleLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,15 +80,15 @@ const Navbar = () => {
                   ABACUS<span className="text-gold"> HOMES</span>
                 </span>
                 <p className="text-[9px] uppercase tracking-widest text-construction dark:text-construction-light font-bold">
-                  Design • Build • Deliver
+                  {language === 'en' ? 'Design • Build • Deliver' : 'ഡിസൈൻ • നിർമ്മാണം • കൈമാറൽ'}
                 </p>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center space-x-6">
-              <NavLink to="/" className={activeStyle}>Home</NavLink>
-              <NavLink to="/about" className={activeStyle}>About</NavLink>
+            <div className="hidden lg:flex items-center space-x-5">
+              <NavLink to="/" className={activeStyle}>{t('home')}</NavLink>
+              <NavLink to="/about" className={activeStyle}>{t('about')}</NavLink>
               
               {/* Mega Menu Toggle */}
               <div 
@@ -95,7 +97,7 @@ const Navbar = () => {
                 onMouseLeave={() => setIsMegaOpen(false)}
               >
                 <button className="flex items-center text-sm font-semibold uppercase tracking-wider text-primary dark:text-white hover:text-gold dark:hover:text-gold-light focus:outline-none py-2">
-                  Services <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />
+                  {t('services')} <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />
                 </button>
                 
                 {/* Mega Menu Dropdown */}
@@ -116,7 +118,7 @@ const Navbar = () => {
                               <Ruler className="w-5 h-5 text-primary dark:text-primary-light mt-0.5 mr-2" />
                               <div>
                                 <p className="text-sm font-bold text-primary dark:text-white">Architectural Drafting</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Custom plans, elevations, elevations & 3D renders.</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">Custom plans, elevations & 3D renders.</p>
                               </div>
                             </Link>
                           </li>
@@ -167,16 +169,27 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              <NavLink to="/projects" className={activeStyle}>Projects</NavLink>
-              <NavLink to="/gallery" className={activeStyle}>Gallery</NavLink>
-              <NavLink to="/floor-plans" className={activeStyle}>Floor Plans</NavLink>
+              <NavLink to="/projects" className={activeStyle}>{t('projects')}</NavLink>
+              <NavLink to="/gallery" className={activeStyle}>{t('gallery')}</NavLink>
+              <NavLink to="/floor-plans" className={activeStyle}>{t('floor_plans')}</NavLink>
+              <NavLink to="/packages" className={activeStyle}>{t('packages')}</NavLink>
+              <NavLink to="/emi-calculator" className={activeStyle}>EMI</NavLink>
               <NavLink to="/blog" className={activeStyle}>Blog</NavLink>
-              <NavLink to="/careers" className={activeStyle}>Careers</NavLink>
-              <NavLink to="/contact" className={activeStyle}>Contact</NavLink>
+              <NavLink to="/careers" className={activeStyle}>{t('careers')}</NavLink>
+              <NavLink to="/contact" className={activeStyle}>{t('contact')}</NavLink>
             </div>
 
             {/* Right Action Icons */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-3">
+              {/* Language Switch Toggle */}
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center space-x-1.5 px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-bold text-primary dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
+              >
+                <Globe className="w-3.5 h-3.5 text-gold" />
+                <span>{language === 'en' ? 'മലയാളം' : 'English'}</span>
+              </button>
+
               {/* Search Toggle Button */}
               <button 
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -216,21 +229,27 @@ const Navbar = () => {
                   to="/login"
                   className="flex items-center px-4 py-2 text-xs font-bold uppercase tracking-wider bg-transparent border border-primary dark:border-white text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary rounded-lg transition-all"
                 >
-                  <User className="w-4 h-4 mr-1.5" /> Client Portal
+                  <User className="w-4 h-4 mr-1.5" /> Portal
                 </Link>
               )}
 
               {/* Appointment Booking Trigger */}
               <button 
                 onClick={() => setIsAppointmentOpen(true)}
-                className="px-5 py-2.5 text-xs font-bold uppercase tracking-wider bg-gold hover:bg-gold-dark text-white rounded-lg shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider bg-gold hover:bg-gold-dark text-white rounded-lg shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
-                Book Appointment
+                {t('bookAppointment')}
               </button>
             </div>
 
             {/* Mobile Menu Toggle Button */}
-            <div className="flex items-center lg:hidden space-x-3">
+            <div className="flex items-center lg:hidden space-x-2">
+              <button 
+                onClick={toggleLanguage}
+                className="px-2 py-1 border border-slate-200 dark:border-slate-805 rounded text-[10px] font-bold text-primary dark:text-white"
+              >
+                {language === 'en' ? 'ML' : 'EN'}
+              </button>
               <button 
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 className="p-2 rounded-full text-primary dark:text-white"
@@ -291,16 +310,18 @@ const Navbar = () => {
               className="lg:hidden bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-lg overflow-hidden"
             >
               <div className="px-4 pt-2 pb-6 space-y-2">
-                <NavLink to="/" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Home</NavLink>
-                <NavLink to="/about" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">About Us</NavLink>
-                <NavLink to="/services" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Services</NavLink>
-                <NavLink to="/projects" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Projects</NavLink>
-                <NavLink to="/gallery" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Gallery</NavLink>
-                <NavLink to="/floor-plans" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Floor Plans</NavLink>
-                <NavLink to="/calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Cost Calculator</NavLink>
+                <NavLink to="/" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('home')}</NavLink>
+                <NavLink to="/about" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('about')}</NavLink>
+                <NavLink to="/services" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('services')}</NavLink>
+                <NavLink to="/projects" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('projects')}</NavLink>
+                <NavLink to="/gallery" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('gallery')}</NavLink>
+                <NavLink to="/floor-plans" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('floor_plans')}</NavLink>
+                <NavLink to="/packages" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('packages')}</NavLink>
+                <NavLink to="/emi-calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">EMI Calculator</NavLink>
+                <NavLink to="/calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('calculator')}</NavLink>
                 <NavLink to="/blog" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Blog</NavLink>
-                <NavLink to="/careers" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Careers</NavLink>
-                <NavLink to="/contact" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Contact</NavLink>
+                <NavLink to="/careers" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('careers')}</NavLink>
+                <NavLink to="/contact" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('contact')}</NavLink>
                 
                 <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col space-y-3 px-3">
                   {user ? (
@@ -322,14 +343,14 @@ const Navbar = () => {
                       onClick={toggleMenu}
                       className="text-center py-2 border border-primary dark:border-white text-primary dark:text-white rounded-lg font-bold"
                     >
-                      Client Portal
+                      {t('portal')}
                     </Link>
                   )}
                   <button 
                     onClick={() => { setIsAppointmentOpen(true); toggleMenu(); }}
                     className="text-center py-2.5 bg-gold text-white rounded-lg font-bold shadow"
                   >
-                    Book Appointment
+                    {t('bookAppointment')}
                   </button>
                 </div>
               </div>
@@ -435,4 +456,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
