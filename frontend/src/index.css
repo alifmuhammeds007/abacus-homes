@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F2D5C;
+  --color-primary-dark: #0a1d3c;
+  --color-primary-light: #1e4887;
+  
+  --color-construction: #1F5E2C;
+  --color-construction-dark: #143f1d;
+  --color-construction-light: #2e8740;
+  
+  --color-gold: #D4A32D;
+  --color-gold-dark: #aa8120;
+  --color-gold-light: #e0b753;
+  
+  --color-brandgray: #F4F6F8;
+  --color-brandgray-dark: #e2e8f0;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: Outfit, Inter, sans-serif;
+  
+  --shadow-premium: 0 10px 30px -10px rgba(15, 45, 92, 0.08), 0 1px 3px rgba(15, 45, 92, 0.03);
+  --shadow-premium-hover: 0 20px 40px -15px rgba(15, 45, 92, 0.16), 0 2px 8px rgba(15, 45, 92, 0.06);
+  --shadow-glass: 0 8px 32px 0 rgba(15, 45, 92, 0.05);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Outfit', 'Inter', sans-serif;
+  }
+  body {
+    @apply bg-white text-slate-800 transition-colors duration-300;
+  }
+  body.dark {
+    @apply bg-slate-950 text-slate-100;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-nav {
+  background: rgba(10, 29, 60, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dark .glass-card {
+  background: rgba(15, 45, 92, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 dark:bg-primary-light/20 rounded-full hover:bg-primary/40 dark:hover:bg-primary-light/40 transition-colors;
+}
+
+/* Masonry Grid Item Aspect Ratios */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1.5rem;
+  grid-auto-flow: dense;
+}
+
+/* Hover Zoom Effect */
+.image-zoom-container {
+  overflow: hidden;
+}
+.image-zoom-container img {
+  transition: transform 0.7s ease;
+}
+.image-zoom-container:hover img {
+  transform: scale(1.08);
+}
+
+/* Hide defaults for input file uploads */
+.file-upload-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
