@@ -173,7 +173,6 @@ const Navbar = () => {
               <NavLink to="/gallery" className={activeStyle}>{t('gallery')}</NavLink>
               <NavLink to="/floor-plans" className={activeStyle}>{t('floor_plans')}</NavLink>
               <NavLink to="/packages" className={activeStyle}>{t('packages')}</NavLink>
-              <NavLink to="/emi-calculator" className={activeStyle}>EMI</NavLink>
               <NavLink to="/blog" className={activeStyle}>Blog</NavLink>
               <NavLink to="/careers" className={activeStyle}>{t('careers')}</NavLink>
               <NavLink to="/contact" className={activeStyle}>{t('contact')}</NavLink>
@@ -317,7 +316,6 @@ const Navbar = () => {
                 <NavLink to="/gallery" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('gallery')}</NavLink>
                 <NavLink to="/floor-plans" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('floor_plans')}</NavLink>
                 <NavLink to="/packages" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('packages')}</NavLink>
-                <NavLink to="/emi-calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">EMI Calculator</NavLink>
                 <NavLink to="/calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('calculator')}</NavLink>
                 <NavLink to="/blog" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Blog</NavLink>
                 <NavLink to="/careers" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('careers')}</NavLink>

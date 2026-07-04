@@ -17,7 +17,6 @@ import ProjectDetail from './pages/ProjectDetail';
 import Gallery from './pages/Gallery';
 import FloorPlans from './pages/FloorPlans';
 import CostCalculator from './pages/CostCalculator';
-import EmiCalculator from './pages/EmiCalculator';
 import Packages from './pages/Packages';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
@@ -91,7 +90,6 @@ function App() {
                   <Route path="/gallery" element={<Gallery />} />
                   <Route path="/floor-plans" element={<FloorPlans />} />
                   <Route path="/calculator" element={<CostCalculator />} />
-                  <Route path="/emi-calculator" element={<EmiCalculator />} />
                   <Route path="/packages" element={<Packages />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:id" element={<BlogDetail />} />
