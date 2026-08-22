@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { careersAPI } from '../services/api';
-import { Briefcase, MapPin, Calendar, CheckSquare, Upload, Send } from 'lucide-react';
+import { Briefcase, MapPin, Calendar, CheckSquare, Upload, Send, CheckCircle2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 const Careers = () => {
@@ -35,155 +35,151 @@ const Careers = () => {
   };
 
   return (
-    <div className="pt-24 bg-white dark:bg-slate-950 min-h-screen">
+    <div className="pt-24 bg-[#fafafa] text-slate-900 min-h-screen selection:bg-[#2596be] selection:text-white font-sans relative z-10">
       
       {/* Header */}
-      <div className="bg-primary dark:bg-slate-900 py-16 text-center text-white border-b border-gold/20">
-        <h1 className="text-3xl md:text-5xl font-bold font-serif mb-3">Careers at Abacus</h1>
-        <p className="text-sm md:text-base text-gold uppercase tracking-widest font-semibold">Join Our Civil Engineering & Creative Architecture Teams</p>
+      <div className="relative py-16 sm:py-24 text-center bg-gradient-to-b from-white via-[#f4f7f9] to-[#fafafa] border-b border-slate-200/80 overflow-hidden z-10">
+        
+        {/* Medium Sized Brand Watermark (Visible on Mobile & Desktop) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0 select-none">
+          <span className="font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-slate-900/[0.07] tracking-[0.18em] uppercase whitespace-nowrap leading-none">
+            CAREERS
+          </span>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-[#2596be] text-xs font-mono tracking-widest uppercase mb-3 shadow-xs">
+            11 // JOIN OUR TEAM
+          </div>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-[#3b2314] tracking-tight mb-3">
+            CAREERS AT <span className="text-[#2596be]">ABACUS.</span>
+          </h1>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            Join our civil engineering ateliers, structural drafting studios, and interior design practices.
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           
           {/* Open Positions Grid */}
           <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-lg font-serif font-bold text-primary dark:text-white uppercase tracking-wider mb-4">Open Positions</h2>
+            <h2 className="text-base font-sans font-bold text-slate-900 uppercase tracking-wider mb-6">Current Openings</h2>
             
             <div className="space-y-4">
               {positions.map(job => (
                 <div 
                   key={job.id}
-                  className={`p-6 rounded-2xl border transition-all cursor-pointer ${
-                    activeJob?.id === job.id
-                      ? 'bg-slate-50 dark:bg-slate-900 border-gold shadow'
-                      : 'bg-white dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 hover:bg-slate-50'
-                  }`}
                   onClick={() => setActiveJob(job)}
+                  className={`p-6 sm:p-8 rounded-3xl border transition-all cursor-pointer shadow-xs ${
+                    activeJob?.id === job.id
+                      ? 'bg-white border-[#2596be] shadow-md shadow-[#2596be]/10 ring-1 ring-[#2596be]/30'
+                      : 'bg-white border-slate-200/90 hover:border-[#2596be]'
+                  }`}
                 >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-base font-bold text-primary dark:text-white font-serif">{job.title}</h3>
-                      <p className="text-xs text-gold uppercase tracking-wider font-semibold mt-1">{job.department}</p>
-                    </div>
-                    <span className="flex items-center text-xs text-slate-400 font-bold"><MapPin className="w-3.5 h-3.5 text-gold mr-1" /> {job.location}</span>
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-bold text-[#3b2314] font-sans">{job.title}</h3>
+                    <span className="px-3 py-1 bg-slate-100 text-slate-700 text-[10px] font-bold uppercase rounded-full">
+                      {job.job_type}
+                    </span>
                   </div>
 
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-4 leading-relaxed line-clamp-2">
+                  <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-4">
+                    <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-[#2596be]" /> {job.location}</span>
+                    <span className="flex items-center gap-1"><Briefcase className="w-3.5 h-3.5 text-[#2596be]" /> {job.experience} Exp</span>
+                  </div>
+
+                  <p className="text-xs text-slate-600 leading-relaxed mb-4">
                     {job.description}
                   </p>
 
-                  <div className="mt-4 flex justify-between items-center text-xs font-bold text-slate-400">
-                    <span>Full-Time Role</span>
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); setActiveJob(job); }}
-                      className="text-gold uppercase tracking-wider hover:underline"
-                    >
-                      View Details & Apply
-                    </button>
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-xs font-bold text-[#2596be]">Click to Apply for this Position →</span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Job Details & Apply Form Column */}
+          {/* Application Form */}
           <div className="lg:col-span-1">
-            {activeJob ? (
-              <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-105 dark:border-slate-800 shadow-premium sticky top-28">
-                <h3 className="text-base font-bold text-primary dark:text-white font-serif mb-1">{activeJob.title}</h3>
-                <p className="text-xs text-gold uppercase tracking-wider font-semibold mb-4">{activeJob.department}</p>
-                
-                <h4 className="text-xs font-bold text-primary dark:text-white uppercase tracking-widest mb-2 border-b pb-1.5">Key Responsibilities</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">{activeJob.description}</p>
+            <div className="bg-white p-7 sm:p-8 rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] sticky top-28">
+              <h3 className="text-base font-bold text-[#3b2314] font-sans mb-1">
+                {activeJob ? `Apply: ${activeJob.title}` : 'Submit Resume'}
+              </h3>
+              <p className="text-xs text-slate-500 mb-6">Attach your CV and portfolio link.</p>
 
-                <h4 className="text-xs font-bold text-primary dark:text-white uppercase tracking-widest mb-2 border-b pb-1.5">Requirements</h4>
-                <ul className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 mb-6">
-                  {activeJob.requirements.split(';').map((req, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckSquare className="w-3.5 h-3.5 text-gold mr-1.5 shrink-0 mt-0.5" />
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Application Form */}
-                <h4 className="text-xs font-bold text-primary dark:text-white uppercase tracking-widest mb-4 border-b pb-1.5">Apply for this position</h4>
-                
-                {successMessage ? (
-                  <div className="p-4 bg-green-50 dark:bg-slate-950 text-green-600 dark:text-green-400 border border-green-200 rounded text-xs text-center font-bold">
-                    {successMessage}
+              {successMessage ? (
+                <div className="p-6 bg-green-50 text-green-700 border border-green-200 rounded-2xl text-center space-y-2">
+                  <CheckCircle2 className="w-6 h-6 mx-auto text-green-600 mb-1" />
+                  <p className="text-xs font-bold">{successMessage}</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Full Name *</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Maya Suresh"
+                      {...register('name', { required: true })}
+                      className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none"
+                    />
+                    {errors.name && <span className="text-[10px] text-red-500 mt-0.5">Name is required</span>}
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-                    <div>
-                      <input 
-                        type="text" 
-                        placeholder="Full Name"
-                        {...register('name', { required: true })}
-                        className="w-full text-xs px-3 py-2 border rounded bg-white dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                      />
-                      {errors.name && <span className="text-[10px] text-red-500 font-semibold">Name is required</span>}
-                    </div>
 
-                    <div>
-                      <input 
-                        type="email" 
-                        placeholder="Email Address"
-                        {...register('email', { required: true })}
-                        className="w-full text-xs px-3 py-2 border rounded bg-white dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                      />
-                      {errors.email && <span className="text-[10px] text-red-500 font-semibold">Email is required</span>}
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Email Address *</label>
+                    <input 
+                      type="email" 
+                      placeholder="maya@example.com"
+                      {...register('email', { required: true })}
+                      className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none"
+                    />
+                    {errors.email && <span className="text-[10px] text-red-500 mt-0.5">Email is required</span>}
+                  </div>
 
-                    <div>
-                      <input 
-                        type="tel" 
-                        placeholder="Phone Number"
-                        {...register('phone', { required: true })}
-                        className="w-full text-xs px-3 py-2 border rounded bg-white dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                      />
-                      {errors.phone && <span className="text-[10px] text-red-500 font-semibold">Phone is required</span>}
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Phone Number *</label>
+                    <input 
+                      type="tel" 
+                      placeholder="+91 98470 00000"
+                      {...register('phone', { required: true })}
+                      className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none"
+                    />
+                    {errors.phone && <span className="text-[10px] text-red-500 mt-0.5">Phone is required</span>}
+                  </div>
 
-                    <div>
-                      <textarea 
-                        placeholder="Quick Pitch / Cover Letter"
-                        rows="3"
-                        {...register('coverLetter')}
-                        className="w-full text-xs px-3 py-2 border rounded bg-white dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Cover Letter / Portfolio Link</label>
+                    <textarea 
+                      rows={3}
+                      placeholder="Brief intro or Behance/Drive portfolio link..."
+                      {...register('coverLetter')}
+                      className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none resize-none"
+                    />
+                  </div>
 
-                    <div>
-                      <label className="flex items-center justify-between border border-dashed border-slate-300 dark:border-slate-700 p-2 rounded cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800">
-                        <span className="text-xs text-slate-400 flex items-center"><Upload className="w-4 h-4 mr-1.5" /> Upload CV (PDF)</span>
-                        <input 
-                          type="file" 
-                          accept=".pdf,.doc,.docx"
-                          {...register('resume')}
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Attach Resume (PDF/DOC)</label>
+                    <input 
+                      type="file" 
+                      {...register('resume', { required: true })}
+                      className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#2596be]/10 file:text-[#2596be]"
+                    />
+                    {errors.resume && <span className="text-[10px] text-red-500 mt-0.5">Resume is required</span>}
+                  </div>
 
-                    <button 
-                      type="submit"
-                      className="w-full py-2.5 bg-gold hover:bg-gold-dark text-white rounded font-bold text-xs uppercase tracking-wider transition-colors shadow flex items-center justify-center"
-                    >
-                      <Send className="w-3.5 h-3.5 mr-1.5" /> Submit Application
-                    </button>
-                  </form>
-                )}
-
-              </div>
-            ) : (
-              <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center text-slate-400 min-h-[300px]">
-                <Briefcase className="w-10 h-10 text-slate-350 dark:text-slate-700 mb-3" />
-                <h3 className="text-sm font-bold font-serif text-primary dark:text-white mb-1">Select a Job Position</h3>
-                <p className="text-[11px] max-w-[200px]">Click any role on the left to see description, qualifications, and open the job apply form.</p>
-              </div>
-            )}
+                  <button 
+                    type="submit"
+                    className="w-full py-3 bg-[#2596be] hover:bg-[#1d7fa2] text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all shadow-md shadow-[#2596be]/20 flex items-center justify-center gap-2 mt-2"
+                  >
+                    <span>Transmit Application</span>
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
 
         </div>

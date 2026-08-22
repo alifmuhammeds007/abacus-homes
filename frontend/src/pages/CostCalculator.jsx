@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Calculator, Hammer, HardHat, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Calculator, Hammer, HardHat, ShieldCheck, HelpCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CostCalculator = () => {
   const [inputs, setInputs] = useState({
@@ -41,7 +42,7 @@ const CostCalculator = () => {
     // Base cost based on Built Area
     let baseCost = inputs.builtArea * rate;
 
-    // Floors adjustment (additional floors have slightly lower shell cost)
+    // Floors adjustment
     if (inputs.floors > 1) {
       const extraFloors = inputs.floors - 1;
       baseCost += (inputs.builtArea / inputs.floors) * rate * 0.85 * extraFloors;
@@ -108,26 +109,43 @@ const CostCalculator = () => {
   };
 
   return (
-    <div className="pt-24 bg-white dark:bg-slate-950 min-h-screen">
+    <div className="pt-24 bg-[#fafafa] text-slate-900 min-h-screen selection:bg-[#2596be] selection:text-white font-sans relative z-10">
       
       {/* Header */}
-      <div className="bg-primary dark:bg-slate-900 py-16 text-center text-white border-b border-gold/20">
-        <h1 className="text-3xl md:text-5xl font-bold font-serif mb-3">Construction Cost Calculator</h1>
-        <p className="text-sm md:text-base text-gold uppercase tracking-widest font-semibold">Get Instant Estimates for Material, Labour, and Project Timelines</p>
+      <div className="relative py-16 sm:py-24 text-center bg-gradient-to-b from-white via-[#f4f7f9] to-[#fafafa] border-b border-slate-200/80 overflow-hidden z-10">
+        
+        {/* Medium Sized Brand Watermark (Visible on Mobile & Desktop) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0 select-none">
+          <span className="font-sans font-black text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-slate-900/[0.07] tracking-[0.18em] uppercase whitespace-nowrap leading-none">
+            ESTIMATOR
+          </span>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-[#2596be] text-xs font-mono tracking-widest uppercase mb-3 shadow-xs">
+            05 // COST ESTIMATION
+          </div>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-[#3b2314] tracking-tight mb-3">
+            CONSTRUCTION <span className="text-[#2596be]">CALCULATOR.</span>
+          </h1>
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            Instant online estimates for civil materials, skilled labour, and estimated completion schedules.
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           
           {/* Inputs Section */}
-          <div className="lg:col-span-1 bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-premium">
-            <h2 className="text-lg font-serif font-bold text-primary dark:text-white uppercase tracking-wider mb-6 flex items-center">
-              <Calculator className="w-5 h-5 text-gold mr-2" /> Specification Form
+          <div className="lg:col-span-1 bg-white p-7 sm:p-8 rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+            <h2 className="text-base font-sans font-bold text-[#3b2314] uppercase tracking-wider mb-6 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-[#2596be]" /> Specification Form
             </h2>
 
             <form onSubmit={calculateCost} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Plot Land Area (Sq.Ft.)</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Plot Land Area (Sq.Ft.)</label>
                 <input 
                   type="number" 
                   name="landArea"
@@ -135,12 +153,12 @@ const CostCalculator = () => {
                   onChange={handleInputChange}
                   required
                   min="300"
-                  className="w-full text-xs px-3 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:ring-1 focus:ring-gold focus:outline-none"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:ring-1 focus:ring-[#2596be] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Built-Up Area (Sq.Ft.)</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Built-Up Area (Sq.Ft.)</label>
                 <input 
                   type="number" 
                   name="builtArea"
@@ -148,40 +166,40 @@ const CostCalculator = () => {
                   onChange={handleInputChange}
                   required
                   min="300"
-                  className="w-full text-xs px-3 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:ring-1 focus:ring-gold focus:outline-none"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:ring-1 focus:ring-[#2596be] focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Floors</label>
+                  <label className="block text-[10px] font-semibold text-slate-700 uppercase tracking-wider mb-1">Floors</label>
                   <select 
                     name="floors"
                     value={inputs.floors}
                     onChange={handleInputChange}
-                    className="w-full text-xs px-2 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
+                    className="w-full text-xs px-2 py-2 bg-[#fafafa] border border-slate-200 rounded-xl focus:outline-none"
                   >
                     {[1, 2, 3, 4].map(f => <option key={f} value={f}>{f}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Beds</label>
+                  <label className="block text-[10px] font-semibold text-slate-700 uppercase tracking-wider mb-1">Beds</label>
                   <select 
                     name="bedrooms"
                     value={inputs.bedrooms}
                     onChange={handleInputChange}
-                    className="w-full text-xs px-2 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
+                    className="w-full text-xs px-2 py-2 bg-[#fafafa] border border-slate-200 rounded-xl focus:outline-none"
                   >
                     {[1, 2, 3, 4, 5, 6].map(b => <option key={b} value={b}>{b}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Baths</label>
+                  <label className="block text-[10px] font-semibold text-slate-700 uppercase tracking-wider mb-1">Baths</label>
                   <select 
                     name="bathrooms"
                     value={inputs.bathrooms}
                     onChange={handleInputChange}
-                    className="w-full text-xs px-2 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
+                    className="w-full text-xs px-2 py-2 bg-[#fafafa] border border-slate-200 rounded-xl focus:outline-none"
                   >
                     {[1, 2, 3, 4, 5, 6].map(ba => <option key={ba} value={ba}>{ba}</option>)}
                   </select>
@@ -189,134 +207,114 @@ const CostCalculator = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Finishing Type</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Finishing Grade</label>
                 <select 
                   name="constructionType"
                   value={inputs.constructionType}
                   onChange={handleInputChange}
-                  className="w-full text-xs px-3 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
+                  className="w-full text-xs px-3 py-2.5 bg-[#fafafa] border border-slate-200 rounded-xl focus:outline-none"
                 >
-                  <option value="economy">Economy (Basic materials)</option>
-                  <option value="standard">Standard (Quality concrete & tiles)</option>
-                  <option value="premium">Premium (Top-tier fittings & elevation)</option>
-                  <option value="luxury">Luxury (Italian marble, smart systems)</option>
+                  <option value="economy">Economy (Basic materials - ₹1,600/sqft)</option>
+                  <option value="standard">Standard (Quality concrete & tiles - ₹1,900/sqft)</option>
+                  <option value="premium">Premium (Teakwood & false ceiling - ₹2,250/sqft)</option>
+                  <option value="luxury">Luxury (Imported Italian marble - ₹2,650/sqft)</option>
                 </select>
               </div>
 
-              <div className="flex items-center pt-2">
-                <input 
-                  type="checkbox" 
-                  name="premiumMaterials"
-                  id="premiumMaterials"
-                  checked={inputs.premiumMaterials}
-                  onChange={handleInputChange}
-                  className="h-4 w-4 text-gold border-slate-300 rounded focus:ring-gold"
-                />
-                <label htmlFor="premiumMaterials" className="ml-2 text-xs text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider select-none">
-                  Include premium structures?
+              <div className="pt-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    name="premiumMaterials"
+                    checked={inputs.premiumMaterials}
+                    onChange={handleInputChange}
+                    className="rounded text-[#2596be] focus:ring-[#2596be] w-4 h-4"
+                  />
+                  <span className="text-xs text-slate-700 font-medium">Add Smart Home Automation (+₹250/sqft)</span>
                 </label>
               </div>
 
-              <button 
-                type="submit" 
-                className="w-full py-3 bg-gold hover:bg-gold-dark text-white rounded-lg font-bold text-xs uppercase tracking-wider transition-colors shadow flex items-center justify-center mt-6"
+              <button
+                type="submit"
+                className="w-full py-3.5 bg-[#2596be] hover:bg-[#1d7fa2] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-md shadow-[#2596be]/20 transition-all mt-4"
               >
-                Calculate Cost Estimates
+                Compute Estimated Cost
               </button>
             </form>
           </div>
 
           {/* Results Output Section */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
             {results ? (
-              <div className="space-y-6">
+              <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-8">
                 
-                {/* Total Cost Alert */}
-                <div className="bg-primary text-white p-6 rounded-2xl border border-gold/30 shadow-premium flex flex-col md:flex-row justify-between items-start md:items-center">
-                  <div className="mb-4 md:mb-0">
-                    <span className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">Approximate Construction Budget</span>
-                    <h3 className="text-3xl font-bold text-gold font-serif mt-1">Rs. {results.totalCost.toLocaleString(undefined, { maximumFractionDigits: 0 })}</h3>
-                    <p className="text-[10px] text-slate-300 mt-1">Calculated at Rs. {(results.totalCost / inputs.builtArea).toFixed(0)} / Sq.Ft. base rate</p>
+                {/* Total Cost Display */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-100 gap-4">
+                  <div>
+                    <span className="text-xs font-mono font-bold text-[#2596be] uppercase tracking-wider">Estimated Project Budget</span>
+                    <p className="text-3xl sm:text-4xl font-extrabold text-[#3b2314] font-sans mt-1">
+                      ₹{results.totalCost.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                    </p>
                   </div>
-                  <div className="flex space-x-6 text-center border-l border-white/10 pl-0 md:pl-6 pt-4 md:pt-0">
-                    <div>
-                      <span className="text-[9px] text-slate-350 uppercase font-bold tracking-widest">Labour split</span>
-                      <p className="text-sm font-bold text-white mt-0.5">38%</p>
+                  <div className="bg-[#fafafa] px-4 py-2.5 rounded-2xl border border-slate-200 text-center">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Est. Timeline</span>
+                    <span className="text-sm font-extrabold text-[#2596be]">{results.timelineMonths} Months</span>
+                  </div>
+                </div>
+
+                {/* Materials & Labour Splits */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="p-5 rounded-2xl bg-[#fafafa] border border-slate-200/80">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-1.5">
+                      <Hammer className="w-4 h-4 text-[#2596be]" /> Material Cost Breakdown (62%)
+                    </h3>
+                    <p className="text-xl font-bold text-slate-900 font-sans mb-4">
+                      ₹{results.materialCost.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                    </p>
+                    <div className="space-y-2 text-xs text-slate-600">
+                      <div className="flex justify-between"><span>Cement & Sand:</span><span className="font-semibold">₹{(results.materials.cement + results.materials.sandAggregate).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Steel Reinforcement:</span><span className="font-semibold">₹{results.materials.steel.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Tiles & Marble:</span><span className="font-semibold">₹{results.materials.tilesFlooring.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Plumbing & Electrical:</span><span className="font-semibold">₹{results.materials.plumbingElectrical.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
                     </div>
-                    <div>
-                      <span className="text-[9px] text-slate-355 uppercase font-bold tracking-widest">Materials split</span>
-                      <p className="text-sm font-bold text-white mt-0.5">62%</p>
-                    </div>
-                    <div>
-                      <span className="text-[9px] text-slate-350 uppercase font-bold tracking-widest">Duration</span>
-                      <p className="text-sm font-bold text-gold mt-0.5">{results.timelineMonths} Mos</p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-[#fafafa] border border-slate-200/80">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-1.5">
+                      <HardHat className="w-4 h-4 text-[#2596be]" /> Labour & Execution (38%)
+                    </h3>
+                    <p className="text-xl font-bold text-slate-900 font-sans mb-4">
+                      ₹{results.labourCost.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                    </p>
+                    <div className="space-y-2 text-xs text-slate-600">
+                      <div className="flex justify-between"><span>Masonry & Civil Casting:</span><span className="font-semibold">₹{results.labours.masonryCivil.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Carpentry & Joinery:</span><span className="font-semibold">₹{results.labours.carpentryWoodwork.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Electrical & Plumbing:</span><span className="font-semibold">₹{results.labours.plumbingElectrical.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
+                      <div className="flex justify-between"><span>Painting & Finishing:</span><span className="font-semibold">₹{results.labours.painting.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span></div>
                     </div>
                   </div>
                 </div>
 
-                {/* Estimate Tables grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
-                  {/* Material estimate table */}
-                  <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-premium">
-                    <h3 className="text-xs font-bold text-primary dark:text-white uppercase tracking-wider mb-4 border-b pb-2 flex items-center">
-                      <Hammer className="w-4 h-4 text-gold mr-1.5" /> Materials Breakdown (62%)
-                    </h3>
-                    <div className="space-y-3 text-xs">
-                      {[
-                        { label: 'Cement (approx. 16%)', val: results.materials.cement },
-                        { label: 'Steel (FE 550 grade) (18%)', val: results.materials.steel },
-                        { label: 'Bricks & Solid Blocks (11%)', val: results.materials.bricks },
-                        { label: 'Sand & Aggregate (12%)', val: results.materials.sandAggregate },
-                        { label: 'Flooring & Premium Tiles (14%)', val: results.materials.tilesFlooring },
-                        { label: 'Plumbing & Electrical parts (12%)', val: results.materials.plumbingElectrical },
-                        { label: 'Woodwork & Fittings (9%)', val: results.materials.fittingsWoodwork },
-                        { label: 'Paint & Plaster Putty (8%)', val: results.materials.paintPutty }
-                      ].map((item, i) => (
-                        <div key={i} className="flex justify-between border-b border-slate-50 dark:border-slate-850 pb-2">
-                          <span className="text-slate-500 dark:text-slate-400">{item.label}</span>
-                          <span className="font-bold text-slate-800 dark:text-slate-200">Rs. {item.val.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Labour estimate table */}
-                  <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-premium">
-                    <h3 className="text-xs font-bold text-primary dark:text-white uppercase tracking-wider mb-4 border-b pb-2 flex items-center">
-                      <HardHat className="w-4 h-4 text-gold mr-1.5" /> Labour Costs (38%)
-                    </h3>
-                    <div className="space-y-3 text-xs">
-                      {[
-                        { label: 'Civil work & Masonry (50%)', val: results.labours.masonryCivil },
-                        { label: 'Electrical & Plumbing (15%)', val: results.labours.plumbingElectrical },
-                        { label: 'Carpentry & Framing (15%)', val: results.labours.carpentryWoodwork },
-                        { label: 'Flooring & Tile installation (10%)', val: results.labours.flooringTileInstall },
-                        { label: 'Wall Painting & Putty (10%)', val: results.labours.painting }
-                      ].map((item, i) => (
-                        <div key={i} className="flex justify-between border-b border-slate-50 dark:border-slate-850 pb-2">
-                          <span className="text-slate-500 dark:text-slate-400">{item.label}</span>
-                          <span className="font-bold text-slate-800 dark:text-slate-200">Rs. {item.val.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-
-                <div className="p-4 bg-yellow-50 dark:bg-slate-900 border-l-4 border-gold text-xs text-slate-600 dark:text-slate-400 rounded">
-                  <span className="font-bold text-primary dark:text-gold flex items-center mb-1">
-                    <ShieldCheck className="w-4 h-4 mr-1 shrink-0" /> Important Disclaimer
-                  </span>
-                  Calculations are estimates based on average civil construction market rates. Soil conditions, landscaping, elevation complexity, and local approvals costs can modify the budget. Request a custom quotation for an absolute contract price.
+                <div className="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                  <p className="text-xs text-slate-500">Need a certified engineer to visit your plot and finalize the BOQ?</p>
+                  <Link
+                    to="/consultation"
+                    className="px-6 py-3 bg-[#2596be] hover:bg-[#1d7fa2] text-white font-bold text-xs uppercase tracking-wider rounded-full shadow-md shadow-[#2596be]/20 transition-all shrink-0"
+                  >
+                    Book Site Inspection
+                  </Link>
                 </div>
 
               </div>
             ) : (
-              <div className="h-full bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center p-12 text-center text-slate-400">
-                <Calculator className="w-12 h-12 text-slate-300 dark:text-slate-700 mb-4 animate-bounce" />
-                <h3 className="font-serif text-lg text-primary dark:text-white font-bold mb-2">Estimate Your Civil Costs</h3>
-                <p className="text-xs max-w-sm">Complete the configuration specifications form on the left and submit to view cement, steel, masonry, carpentry, and electrical budgets.</p>
+              <div className="bg-white p-12 rounded-3xl border border-slate-200/90 shadow-sm text-center">
+                <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-200 text-[#2596be] flex items-center justify-center mx-auto mb-4">
+                  <Calculator className="w-8 h-8" />
+                </div>
+                <h3 className="text-lg font-bold text-[#3b2314] font-sans mb-2">Ready to Estimate</h3>
+                <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-6">
+                  Input your built-up area and desired finishing tier on the left to generate an instant BOQ cost breakdown.
+                </p>
               </div>
             )}
           </div>

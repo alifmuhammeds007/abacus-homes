@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+:root {
+  --navy-950: #070b14;
+  --navy-900: #0d1526;
+  --navy-800: #141f38;
+  --navy-700: #1d2c4d;
+  --slate-500: #5b6b8c;
+  --gold-500: #c9a03f;
+  --gold-300: #e6cd8b;
+  --gold-700: #8f7226;
+  --cream-100: #f7f4ec;
+  --cream-200: #efe9da;
+  --paper: #faf8f2;
+  --ink: #e9edf6;
+  --ink-dim: #a6b0c6;
+  --line-dark: rgba(233, 237, 246, 0.10);
+  --line-light: rgba(20, 26, 38, 0.10);
+  --ease-spring: cubic-bezier(.22, 1, .36, 1);
+}
+
 @theme {
   --color-primary: #0F2D5C;
   --color-primary-dark: #0a1d3c;
@@ -9,15 +28,16 @@
   --color-construction-dark: #143f1d;
   --color-construction-light: #2e8740;
   
-  --color-gold: #D4A32D;
-  --color-gold-dark: #aa8120;
-  --color-gold-light: #e0b753;
+  --color-gold: #c9a03f;
+  --color-gold-dark: #8f7226;
+  --color-gold-light: #e6cd8b;
   
   --color-brandgray: #F4F6F8;
   --color-brandgray-dark: #e2e8f0;
   
-  --font-serif: "Playfair Display", serif;
-  --font-sans: Outfit, Inter, sans-serif;
+  --font-serif: "Fraunces", "Playfair Display", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-sans: "Inter", "Outfit", sans-serif;
   
   --shadow-premium: 0 10px 30px -10px rgba(15, 45, 92, 0.08), 0 1px 3px rgba(15, 45, 92, 0.03);
   --shadow-premium-hover: 0 20px 40px -15px rgba(15, 45, 92, 0.16), 0 2px 8px rgba(15, 45, 92, 0.06);
@@ -27,47 +47,392 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Outfit', 'Inter', sans-serif;
+    font-family: 'Inter', 'Outfit', sans-serif;
   }
   body {
     @apply bg-white text-slate-800 transition-colors duration-300;
   }
-  body.dark {
+  body.dark, html.dark body, html[data-theme="dark"] body {
     @apply bg-slate-950 text-slate-100;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', 'Playfair Display', serif;
   }
+}
+
+/* Cormorant Garamond Serif Italic */
+.serif-i {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Eyebrow badge */
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold-500);
+}
+
+/* Blueprint Grid Layer */
+.blueprint-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.45;
+  background-image: 
+    linear-gradient(rgba(201, 160, 63, 0.12) 1px, transparent 1px), 
+    linear-gradient(90deg, rgba(201, 160, 63, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 70% 65% at 60% 45%, #000 35%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 60% 45%, #000 35%, transparent 80%);
+  pointer-events: none;
+  transition: transform 0.2s ease-out;
+}
+
+/* ---------------- 3D Construction Scene ---------------- */
+.stage-3d {
+  position: relative;
+  height: 480px;
+  perspective: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+@media (max-width: 960px) {
+  .stage-3d {
+    height: 380px;
+  }
+}
+
+.floor-plane {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  bottom: 40px;
+  border: 1px dashed rgba(201, 160, 63, 0.35);
+  transform: rotateX(78deg);
+  opacity: 0;
+  animation: fadeGridIn 1s var(--ease-spring) 0.1s forwards;
+  pointer-events: none;
+}
+.floor-plane::before, .floor-plane::after {
+  content: '';
+  position: absolute;
+  inset: 22px;
+  border: 1px dashed rgba(201, 160, 63, 0.18);
+}
+@keyframes fadeGridIn {
+  to { opacity: 1; }
+}
+
+.house-3d-box {
+  position: relative;
+  width: 260px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(-38deg);
+  transition: transform 0.12s linear;
+}
+
+.face {
+  position: absolute;
+  background: linear-gradient(160deg, #1d2c4d, #141f38);
+  border: 1px solid rgba(201, 160, 63, 0.35);
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.dark .face, html[data-theme="dark"] .face {
+  background: linear-gradient(160deg, #1d2c4d, #141f38);
+  border-color: rgba(201, 160, 63, 0.4);
+}
+.light .face, html[data-theme="light"] .face, body:not(.dark) .face {
+  background: linear-gradient(160deg, #ffffff, #ece5d3);
+  border-color: rgba(143, 114, 38, 0.35);
+  box-shadow: inset 0 0 15px rgba(201, 160, 63, 0.15);
+}
+
+.face.glass {
+  background: linear-gradient(160deg, rgba(201, 160, 63, 0.28), rgba(201, 160, 63, 0.08));
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(230, 205, 139, 0.6);
+}
+
+/* Foundation Slab */
+.p-foundation {
+  width: 260px;
+  height: 180px;
+  transform: rotateX(90deg) translateZ(-70px);
+  background: #070b14;
+  border: 1.5px solid var(--gold-500);
+  opacity: 0;
+  animation: riseFoundation 0.7s var(--ease-spring) 0.15s forwards;
+}
+.light .p-foundation, body:not(.dark) .p-foundation {
+  background: #ded3b3;
+}
+@keyframes riseFoundation {
+  0% { opacity: 0; transform: rotateX(90deg) translateZ(-120px); }
+  100% { opacity: 1; transform: rotateX(90deg) translateZ(-70px); }
+}
+
+/* Walls: front, back, left, right */
+.p-front {
+  width: 260px;
+  height: 140px;
+  top: 0;
+  left: 0;
+  transform-origin: bottom;
+  transform: translateZ(90px) scaleY(0);
+  opacity: 0;
+  animation: growFront 0.8s var(--ease-spring) 0.5s forwards;
+}
+.p-back {
+  width: 260px;
+  height: 140px;
+  top: 0;
+  left: 0;
+  transform-origin: bottom;
+  transform: rotateY(180deg) translateZ(90px) scaleY(0);
+  opacity: 0;
+  animation: growBack 0.8s var(--ease-spring) 0.5s forwards;
+}
+.p-left {
+  width: 180px;
+  height: 140px;
+  top: 0;
+  left: 40px;
+  transform-origin: bottom;
+  transform: rotateY(-90deg) translateZ(130px) scaleY(0);
+  opacity: 0;
+  animation: growLeft 0.8s var(--ease-spring) 0.7s forwards;
+}
+.p-right {
+  width: 180px;
+  height: 140px;
+  top: 0;
+  left: 40px;
+  transform-origin: bottom;
+  transform: rotateY(90deg) translateZ(130px) scaleY(0);
+  opacity: 0;
+  animation: growRight 0.8s var(--ease-spring) 0.7s forwards;
+}
+
+@keyframes growFront {
+  0% { transform: translateZ(90px) scaleY(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateZ(90px) scaleY(1); opacity: 1; }
+}
+@keyframes growBack {
+  0% { transform: rotateY(180deg) translateZ(90px) scaleY(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: rotateY(180deg) translateZ(90px) scaleY(1); opacity: 1; }
+}
+@keyframes growLeft {
+  0% { transform: rotateY(-90deg) translateZ(130px) scaleY(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: rotateY(-90deg) translateZ(130px) scaleY(1); opacity: 1; }
+}
+@keyframes growRight {
+  0% { transform: rotateY(90deg) translateZ(130px) scaleY(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: rotateY(90deg) translateZ(130px) scaleY(1); opacity: 1; }
+}
+
+/* Gable Roof */
+.p-roofL, .p-roofR {
+  width: 276px;
+  height: 130px;
+  top: -24px;
+  left: -8px;
+  background: linear-gradient(160deg, #8f7226, #5c4714);
+  border: 1.5px solid #e6cd8b;
+  opacity: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.light .p-roofL, .light .p-roofR, body:not(.dark) .p-roofL, body:not(.dark) .p-roofR {
+  background: linear-gradient(160deg, #c9a03f, #9b7923);
+  border-color: #f7e6b5;
+}
+.p-roofL {
+  transform-origin: top center;
+  animation: dropRoofL 0.75s var(--ease-spring) 1.5s forwards;
+}
+.p-roofR {
+  transform-origin: top center;
+  animation: dropRoofR 0.75s var(--ease-spring) 1.55s forwards;
+}
+
+@keyframes dropRoofL {
+  0% { transform: translateY(-130px) translateX(-10px) rotateX(55deg) translateZ(60px); opacity: 0; }
+  100% { transform: translateY(-20px) rotateX(55deg) translateZ(60px); opacity: 1; }
+}
+@keyframes dropRoofR {
+  0% { transform: translateY(-130px) translateX(10px) rotateX(125deg) translateZ(60px); opacity: 0; }
+  100% { transform: translateY(-20px) rotateX(125deg) translateZ(60px); opacity: 1; }
+}
+
+/* Doors & Windows */
+.p-door {
+  width: 48px;
+  height: 80px;
+  top: 60px;
+  left: 106px;
+  transform: translateZ(91px);
+  background: linear-gradient(160deg, #8f7226, #4b3b16);
+  border: 1.5px solid #e6cd8b;
+  opacity: 0;
+  animation: popDoor 0.5s var(--ease-spring) 2.05s forwards;
+}
+@keyframes popDoor {
+  0% { opacity: 0; transform: translateZ(91px) scale(0.4); }
+  100% { opacity: 1; transform: translateZ(91px) scale(1); }
+}
+
+.p-win {
+  width: 40px;
+  height: 40px;
+  top: 35px;
+  opacity: 0;
+}
+.p-win.w1 {
+  left: 32px;
+  transform: translateZ(91px);
+  animation: winIn 0.5s var(--ease-spring) 2.2s forwards;
+}
+.p-win.w2 {
+  left: 188px;
+  transform: translateZ(91px);
+  animation: winIn 0.5s var(--ease-spring) 2.2s forwards;
+}
+.p-win-l {
+  width: 40px;
+  height: 40px;
+  top: 35px;
+  left: 70px;
+  opacity: 0;
+  transform: rotateY(-90deg) translateZ(131px);
+  animation: winInL 0.5s var(--ease-spring) 2.35s forwards;
+}
+
+@keyframes winIn {
+  0% { opacity: 0; transform: translateZ(91px) scale(0.3); }
+  100% { opacity: 1; transform: translateZ(91px) scale(1); }
+}
+@keyframes winInL {
+  0% { opacity: 0; transform: rotateY(-90deg) translateZ(131px) scale(0.3); }
+  100% { opacity: 1; transform: rotateY(-90deg) translateZ(131px) scale(1); }
+}
+
+/* 3D Chimney */
+.p-chim {
+  position: absolute;
+  width: 24px;
+  height: 52px;
+  top: -65px;
+  left: 180px;
+  opacity: 0;
+  transform-style: preserve-3d;
+  animation: chimIn 0.5s var(--ease-spring) 2.5s forwards;
+}
+.p-chim-face {
+  position: absolute;
+  background: linear-gradient(160deg, #1d2c4d, #141f38);
+  border: 1px solid #c9a03f;
+}
+.light .p-chim-face, body:not(.dark) .p-chim-face {
+  background: linear-gradient(160deg, #f7f4ec, #ded3b3);
+}
+.p-chim-f { width: 24px; height: 52px; transform: translateZ(12px); }
+.p-chim-b { width: 24px; height: 52px; transform: rotateY(180deg) translateZ(12px); }
+.p-chim-l { width: 24px; height: 52px; transform: rotateY(-90deg) translateZ(12px); }
+.p-chim-r { width: 24px; height: 52px; transform: rotateY(90deg) translateZ(12px); }
+
+@keyframes chimIn {
+  0% { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Orbiting Dust Motes in 3D scene */
+.mote-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #e6cd8b;
+  box-shadow: 0 0 6px #c9a03f;
+  pointer-events: none;
+  animation: floatMote 6s ease-in-out infinite;
+}
+@keyframes floatMote {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-100px) scale(1.2); }
+}
+
+/* Scroll cue indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 26px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--slate-500);
+  z-index: 10;
+}
+.scroll-cue .ln {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--gold-500), transparent);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue .ln::after {
+  content: '';
+  position: absolute;
+  top: -34px;
+  left: 0;
+  width: 100%;
+  height: 34px;
+  background: var(--gold-300);
+  animation: scrollLine 2.2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0% { top: -34px; }
+  100% { top: 34px; }
 }
 
 /* Glassmorphism Styles */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dark .glass-nav {
-  background: rgba(10, 29, 60, 0.7);
+.dark .glass-nav, html[data-theme="dark"] .glass-nav {
+  background: rgba(7, 11, 20, 0.78);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.dark .glass-card {
-  background: rgba(15, 45, 92, 0.2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(233, 237, 246, 0.08);
 }
 
 /* Custom Scrollbar */
@@ -75,35 +440,76 @@
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   @apply bg-slate-100 dark:bg-slate-900;
 }
-
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary/20 dark:bg-primary-light/20 rounded-full hover:bg-primary/40 dark:hover:bg-primary-light/40 transition-colors;
+  @apply bg-gold/30 rounded-full hover:bg-gold/60 transition-colors;
 }
 
-/* Masonry Grid Item Aspect Ratios */
-.masonry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 1.5rem;
-  grid-auto-flow: dense;
+/* ---------------- 3D Hologram & Construction Deck Effects ---------------- */
+.holo-deck {
+  position: relative;
+  perspective: 1600px;
+  transform-style: preserve-3d;
 }
 
-/* Hover Zoom Effect */
-.image-zoom-container {
-  overflow: hidden;
-}
-.image-zoom-container img {
-  transition: transform 0.7s ease;
-}
-.image-zoom-container:hover img {
-  transform: scale(1.08);
+.holo-platform {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1);
 }
 
-/* Hide defaults for input file uploads */
-.file-upload-input::-webkit-file-upload-button {
-  visibility: hidden;
+.holo-base {
+  position: absolute;
+  inset: -15px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at center, rgba(201, 160, 63, 0.15), rgba(7, 11, 20, 0.8) 70%);
+  border: 1px solid rgba(201, 160, 63, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(201, 160, 63, 0.1);
+  transform: rotateX(60deg) translateZ(-60px);
+  pointer-events: none;
 }
+
+.laser-scan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e6cd8b, #c9a03f, #e6cd8b, transparent);
+  box-shadow: 0 0 15px rgba(201, 160, 63, 0.8), 0 0 30px rgba(201, 160, 63, 0.4);
+  animation: laserSweep 3.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 30;
+}
+@keyframes laserSweep {
+  0% { top: 2%; opacity: 0.2; }
+  30% { opacity: 0.95; }
+  70% { opacity: 0.95; }
+  100% { top: 96%; opacity: 0.2; }
+}
+
+.crane-cable {
+  animation: craneSway 4s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+@keyframes craneSway {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+/* CAD HUD Grid Marker */
+.hud-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--gold-500);
+  pointer-events: none;
+}
+.hud-tl { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
+.hud-tr { top: 8px; right: 8px; border-top: 2px solid; border-right: 2px solid; }
+.hud-bl { bottom: 8px; left: 8px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+
+

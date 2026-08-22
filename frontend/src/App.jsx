@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWidgets from './components/FloatingWidgets';
 import { Loader2 } from 'lucide-react';
+import Logo from './components/ui/Logo';
 
 // Pages
 import Home from './pages/Home';
@@ -59,12 +60,11 @@ function App() {
 
   if (siteLoading) {
     return (
-      <div className="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center z-50">
-        <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center font-serif text-primary text-2xl font-bold border border-gold shadow-2xl animate-pulse mb-4">
-          A
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-50">
+        <div className="mb-4 animate-pulse">
+          <Logo variant="dark" height="h-16 sm:h-20" />
         </div>
-        <p className="font-serif text-white tracking-widest uppercase text-sm font-bold">ABACUS<span className="text-gold"> HOMES</span></p>
-        <Loader2 className="w-5 h-5 text-gold animate-spin mt-4" />
+        <Loader2 className="w-5 h-5 text-[#2596be] animate-spin mt-2" />
       </div>
     );
   }
@@ -76,7 +76,7 @@ function App() {
           <Router>
             <ScrollToTop />
             <div className="flex flex-col min-h-screen">
-              {/* Global Sticky Navigation */}
+              {/* Single Global Sticky Navigation */}
               <Navbar />
 
               {/* Main Page Area */}
@@ -97,6 +97,7 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/consultation" element={<FreeConsultation />} />
                   <Route path="/login" element={<ClientLogin />} />
+                  <Route path="/client-portal" element={<ClientLogin />} />
                   <Route path="/dashboard" element={<ClientDashboard />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -118,12 +119,17 @@ function App() {
                     We use cookies to analyze website traffic and optimize your user experience. By accepting our use of cookies, your data will be aggregated with all other user data.
                   </p>
                   <div className="flex space-x-3 shrink-0">
-                    <Link to="/privacy" className="px-4 py-2 border border-slate-700 hover:border-slate-500 rounded text-xs font-bold uppercase tracking-wider text-slate-300">Privacy Details</Link>
                     <button 
                       onClick={handleAcceptCookies}
-                      className="px-5 py-2 bg-gold hover:bg-gold-dark text-white font-bold text-xs uppercase tracking-wider rounded transition-colors shadow"
+                      className="px-4 py-2 bg-gold hover:bg-gold-dark text-slate-950 font-bold text-xs uppercase tracking-wider rounded transition-colors"
                     >
-                      Accept Cookies
+                      Accept All
+                    </button>
+                    <button 
+                      onClick={() => setCookieConsent(true)}
+                      className="px-4 py-2 border border-slate-700 hover:border-slate-500 text-slate-300 text-xs uppercase tracking-wider rounded transition-colors"
+                    >
+                      Decline
                     </button>
                   </div>
                 </div>
@@ -135,7 +141,5 @@ function App() {
     </LanguageProvider>
   );
 }
-
-
 
 export default App;

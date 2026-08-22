@@ -1,458 +1,202 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowRight, User, Calendar, Calculator, Phone } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { Menu, X, Sun, Moon, ChevronDown, User, Calculator, ShieldCheck, Ruler, Home, Building, Search, Calendar, Download, Globe } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import Logo from './ui/Logo';
 
 const Navbar = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
-  const { user, logout } = useAuth();
-  const { language, toggleLanguage, t } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMegaOpen, setIsMegaOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
-  const [appointmentForm, setAppointmentForm] = useState({ name: '', phone: '', email: '', date: '', slot: '10:00 AM', type: 'Design Consultation' });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 25);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
-    alert(`Searching site for: ${searchQuery}`);
-    setSearchQuery('');
-    setIsSearchOpen(false);
-  };
-
-  const handleBookAppointment = (e) => {
-    e.preventDefault();
-    alert(`Consultation Appointed successfully!\nDate: ${appointmentForm.date}\nTime: ${appointmentForm.slot}\nType: ${appointmentForm.type}`);
-    setIsAppointmentOpen(false);
-    setAppointmentForm({ name: '', phone: '', email: '', date: '', slot: '10:00 AM', type: 'Design Consultation' });
-  };
-
-  const handleDownloadBrochure = () => {
-    alert('Preparing your company brochure PDF download...');
-    window.open('https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', '_blank');
-  };
-
-  const activeStyle = ({ isActive }) =>
-    `text-sm font-semibold transition-all duration-300 uppercase tracking-wider ${
-      isActive 
-        ? 'text-gold dark:text-gold-light border-b-2 border-gold pb-1' 
-        : 'text-primary dark:text-white hover:text-gold dark:hover:text-gold-light'
-    }`;
+  // Complete list of all navbar items
+  const navLinks = [
+    { label: 'HOME', path: '/' },
+    { label: 'ABOUT', path: '/about' },
+    { label: 'SERVICES', path: '/services' },
+    { label: 'PROJECTS', path: '/projects' },
+    { label: 'PACKAGES', path: '/packages' },
+    { label: 'CALCULATOR', path: '/calculator' },
+    { label: 'CONTACT', path: '/contact' },
+  ];
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'glass-nav py-3 shadow-premium' 
-          : 'bg-transparent py-5'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 rounded-lg bg-primary dark:bg-white flex items-center justify-center font-serif text-white dark:text-primary text-xl font-bold border border-gold shadow-md">
-                A
-              </div>
-              <div>
-                <span className="font-serif text-lg md:text-xl font-extrabold tracking-wider text-primary dark:text-white group-hover:text-gold transition-colors">
-                  ABACUS<span className="text-gold"> HOMES</span>
-                </span>
-                <p className="text-[9px] uppercase tracking-widest text-construction dark:text-construction-light font-bold">
-                  {language === 'en' ? 'Design • Build • Deliver' : 'ഡിസൈൻ • നിർമ്മാണം • കൈമാറൽ'}
-                </p>
-              </div>
+      {/* Master Floating Luxury Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-4 px-3 sm:px-6 lg:px-8 transition-all duration-300 pointer-events-none">
+        <nav 
+          className={`max-w-7xl mx-auto w-full rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-500 pointer-events-auto flex items-center justify-between border ${
+            isScrolled 
+              ? 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]' 
+              : 'bg-white/85 backdrop-blur-md border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]'
+          }`}
+        >
+          
+          {/* 1. BRAND LOGO -> Goes to Home Page */}
+          <Link to="/" className="flex items-center group shrink-0 py-0.5">
+            <Logo variant="dark" height="h-8 sm:h-9" />
+          </Link>
+
+          {/* 2. DEDICATED PAGE NAVIGATION LINKS (CENTER) */}
+          <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 border border-slate-200/80 px-2.5 py-1 rounded-full">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.label}
+                  to={link.path}
+                  className={`px-3 py-1 rounded-full text-[11px] font-sans font-semibold tracking-wider transition-all duration-200 ${
+                    isActive
+                      ? 'bg-white text-[#2596be] font-bold shadow-sm'
+                      : 'text-slate-700 hover:text-[#2596be] hover:bg-white/60'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* 3. RIGHT ACTIONS: PORTAL, LANGUAGE & BOOKING */}
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+            
+            {/* Client Portal Button -> Goes to /login */}
+            <Link
+              to="/login"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-sans font-semibold border transition-all duration-200 ${
+                location.pathname === '/login' || location.pathname === '/dashboard' || location.pathname === '/client-portal'
+                  ? 'bg-[#2596be]/10 text-[#2596be] border-[#2596be]/40'
+                  : 'text-slate-700 hover:text-[#2596be] border-slate-200 hover:border-[#2596be]/40 bg-slate-100/80 hover:bg-white'
+              }`}
+              title="Client Project Portal"
+            >
+              <User className="w-3.5 h-3.5 text-[#2596be]" />
+              <span>Portal</span>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center space-x-5">
-              <NavLink to="/" className={activeStyle}>{t('home')}</NavLink>
-              <NavLink to="/about" className={activeStyle}>{t('about')}</NavLink>
-              
-              {/* Mega Menu Toggle */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsMegaOpen(true)}
-                onMouseLeave={() => setIsMegaOpen(false)}
+            {/* Language Switcher Dual Pill */}
+            <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 text-[10px] font-mono">
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-2.5 py-0.5 rounded-full transition-all ${
+                  language === 'en'
+                    ? 'bg-white text-slate-900 font-bold shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
               >
-                <button className="flex items-center text-sm font-semibold uppercase tracking-wider text-primary dark:text-white hover:text-gold dark:hover:text-gold-light focus:outline-none py-2">
-                  {t('services')} <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />
-                </button>
-                
-                {/* Mega Menu Dropdown */}
-                <AnimatePresence>
-                  {isMegaOpen && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-[600px] bg-white dark:bg-slate-900 rounded-xl shadow-premium-hover border border-slate-100 dark:border-slate-800 p-6 z-50 grid grid-cols-2 gap-6"
-                    >
-                      <div>
-                        <h4 className="text-xs font-bold text-gold uppercase tracking-widest mb-3 border-b pb-2">Design & Planning</h4>
-                        <ul className="space-y-3">
-                          <li>
-                            <Link to="/services" className="flex items-start hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors">
-                              <Ruler className="w-5 h-5 text-primary dark:text-primary-light mt-0.5 mr-2" />
-                              <div>
-                                <p className="text-sm font-bold text-primary dark:text-white">Architectural Drafting</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Custom plans, elevations & 3D renders.</p>
-                              </div>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/services" className="flex items-start hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors">
-                              <ShieldCheck className="w-5 h-5 text-primary dark:text-primary-light mt-0.5 mr-2" />
-                              <div>
-                                <p className="text-sm font-bold text-primary dark:text-white">Municipal Approvals</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Panchayat permissions and structural validations.</p>
-                              </div>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-bold text-gold uppercase tracking-widest mb-3 border-b pb-2">Civil Construction</h4>
-                        <ul className="space-y-3">
-                          <li>
-                            <Link to="/services" className="flex items-start hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors">
-                              <Home className="w-5 h-5 text-construction dark:text-construction-light mt-0.5 mr-2" />
-                              <div>
-                                <p className="text-sm font-bold text-primary dark:text-white">Residential Building</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Luxurious villa structures and turnkey houses.</p>
-                              </div>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/services" className="flex items-start hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors">
-                              <Building className="w-5 h-5 text-construction dark:text-construction-light mt-0.5 mr-2" />
-                              <div>
-                                <p className="text-sm font-bold text-primary dark:text-white">Commercial Projects</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">Premium retail spaces and structural frameworks.</p>
-                              </div>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="col-span-2 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg flex justify-between items-center text-xs">
-                        <button onClick={handleDownloadBrochure} className="flex items-center font-bold text-primary dark:text-gold hover:underline">
-                          <Download className="w-4 h-4 mr-1.5" /> Download Company Brochure
-                        </button>
-                        <Link to="/calculator" className="flex items-center font-bold text-gold hover:text-gold-dark">
-                          <Calculator className="w-4 h-4 mr-1" /> Use Calculator
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <NavLink to="/projects" className={activeStyle}>{t('projects')}</NavLink>
-              <NavLink to="/gallery" className={activeStyle}>{t('gallery')}</NavLink>
-              <NavLink to="/floor-plans" className={activeStyle}>{t('floor_plans')}</NavLink>
-              <NavLink to="/packages" className={activeStyle}>{t('packages')}</NavLink>
-              <NavLink to="/blog" className={activeStyle}>Blog</NavLink>
-              <NavLink to="/careers" className={activeStyle}>{t('careers')}</NavLink>
-              <NavLink to="/contact" className={activeStyle}>{t('contact')}</NavLink>
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('ml')}
+                className={`px-2.5 py-0.5 rounded-full transition-all ${
+                  language === 'ml'
+                    ? 'bg-white text-slate-900 font-bold shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+              >
+                ML
+              </button>
             </div>
 
-            {/* Right Action Icons */}
-            <div className="hidden lg:flex items-center space-x-3">
-              {/* Language Switch Toggle */}
-              <button 
-                onClick={toggleLanguage}
-                className="flex items-center space-x-1.5 px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-bold text-primary dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
-              >
-                <Globe className="w-3.5 h-3.5 text-gold" />
-                <span>{language === 'en' ? 'മലയാളം' : 'English'}</span>
-              </button>
+            {/* Book Consultation Slot Button -> Goes to /consultation */}
+            <Link
+              to="/consultation"
+              className={`px-4 py-2 text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 shadow-md shadow-[#2596be]/20 flex items-center gap-2 hover:scale-105 active:scale-95 bg-[#2596be] hover:bg-[#1d7fa2]`}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Book A Slot</span>
+            </Link>
+          </div>
 
-              {/* Search Toggle Button */}
-              <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-full text-primary dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
-                aria-label="Toggle Search"
-              >
-                <Search className="w-5 h-5" />
-              </button>
+          {/* Mobile Right Controls */}
+          <div className="flex items-center gap-2 sm:hidden">
+            <Link
+              to="/login"
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-[#2596be] text-xs"
+              title="Client Portal"
+            >
+              <User className="w-4 h-4" />
+            </Link>
 
-              {/* Theme Toggle */}
-              <button 
-                onClick={toggleDarkMode}
-                className="p-2 rounded-full text-primary dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
-                aria-label="Toggle Dark Mode"
-              >
-                {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
-              </button>
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'ml' : 'en')}
+              className="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-mono text-slate-700"
+            >
+              {language === 'en' ? 'മല' : 'EN'}
+            </button>
 
-              {/* Dashboard / User Login CTA */}
-              {user ? (
-                <div className="flex items-center space-x-2">
-                  <Link 
-                    to={user.is_staff ? "/admin" : "/dashboard"}
-                    className="flex items-center px-4 py-2 text-xs font-bold uppercase tracking-wider bg-primary hover:bg-primary-dark text-white rounded-lg transition-all border border-gold"
-                  >
-                    <User className="w-4 h-4 mr-1.5" /> Dashboard
-                  </Link>
-                  <button 
-                    onClick={logout} 
-                    className="text-xs font-bold text-red-500 hover:text-red-700 uppercase tracking-widest pl-2"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <Link 
-                  to="/login"
-                  className="flex items-center px-4 py-2 text-xs font-bold uppercase tracking-wider bg-transparent border border-primary dark:border-white text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary rounded-lg transition-all"
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#2596be] active:scale-95 transition-transform"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
+        </nav>
+      </header>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-white/98 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 sm:hidden">
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] font-mono text-[#2596be] uppercase tracking-widest px-3 mb-1">
+              Page Directory
+            </span>
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.label}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-4 py-3 rounded-xl font-sans text-base font-bold flex justify-between items-center transition-colors ${
+                    isActive
+                      ? 'bg-[#2596be]/10 text-[#2596be] border border-[#2596be]/30'
+                      : 'text-slate-800 hover:bg-slate-50 hover:text-[#2596be]'
+                  }`}
                 >
-                  <User className="w-4 h-4 mr-1.5" /> Portal
+                  <span>{link.label}</span>
+                  <ArrowRight className="w-4 h-4 opacity-50" />
                 </Link>
-              )}
+              );
+            })}
+          </div>
 
-              {/* Appointment Booking Trigger */}
-              <button 
-                onClick={() => setIsAppointmentOpen(true)}
-                className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider bg-gold hover:bg-gold-dark text-white rounded-lg shadow-md transition-all hover:-translate-y-0.5 active:translate-y-0"
-              >
-                {t('bookAppointment')}
-              </button>
-            </div>
+          <div className="pt-6 border-t border-slate-200 flex flex-col gap-3">
+            <Link
+              to="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+            >
+              <User className="w-4 h-4 text-[#2596be]" />
+              <span>Access Client Portal</span>
+            </Link>
 
-            {/* Mobile Menu Toggle Button */}
-            <div className="flex items-center lg:hidden space-x-2">
-              <button 
-                onClick={toggleLanguage}
-                className="px-2 py-1 border border-slate-200 dark:border-slate-805 rounded text-[10px] font-bold text-primary dark:text-white"
-              >
-                {language === 'en' ? 'ML' : 'EN'}
-              </button>
-              <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-full text-primary dark:text-white"
-                aria-label="Toggle Search"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-              {/* Mobile Theme Toggle */}
-              <button onClick={toggleDarkMode} className="p-2 rounded-full text-primary dark:text-white">
-                {isDarkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
-              </button>
-              <button 
-                onClick={toggleMenu}
-                className="p-2 rounded-lg text-primary dark:text-white focus:outline-none"
-                aria-label="Toggle Mobile Menu"
-              >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+            <Link
+              to="/consultation"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3.5 bg-[#2596be] text-white font-sans font-bold text-xs uppercase tracking-widest text-center rounded-xl shadow-lg shadow-[#2596be]/20 flex items-center justify-center gap-2"
+            >
+              <Calendar className="w-4 h-4" />
+              <span>Book Consultation Slot</span>
+            </Link>
           </div>
         </div>
-
-        {/* Global Search Bar Dropdown Overlay */}
-        <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="absolute left-0 w-full bg-white dark:bg-slate-900 border-b shadow-md overflow-hidden z-40 py-4 px-4 sm:px-12 flex justify-center"
-            >
-              <form onSubmit={handleSearchSubmit} className="flex max-w-2xl w-full">
-                <input
-                  type="text"
-                  placeholder="Search Abacus Homes: projects, floor plans, cost calculators..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full text-xs px-4 py-2 border rounded-l-lg dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                />
-                <button 
-                  type="submit"
-                  className="bg-primary text-white hover:bg-primary-dark px-4 rounded-r-lg flex items-center justify-center font-bold text-xs uppercase tracking-wider"
-                >
-                  Search
-                </button>
-              </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Mobile Drawer Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-lg overflow-hidden"
-            >
-              <div className="px-4 pt-2 pb-6 space-y-2">
-                <NavLink to="/" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('home')}</NavLink>
-                <NavLink to="/about" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('about')}</NavLink>
-                <NavLink to="/services" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('services')}</NavLink>
-                <NavLink to="/projects" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('projects')}</NavLink>
-                <NavLink to="/gallery" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('gallery')}</NavLink>
-                <NavLink to="/floor-plans" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('floor_plans')}</NavLink>
-                <NavLink to="/packages" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('packages')}</NavLink>
-                <NavLink to="/calculator" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('calculator')}</NavLink>
-                <NavLink to="/blog" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">Blog</NavLink>
-                <NavLink to="/careers" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('careers')}</NavLink>
-                <NavLink to="/contact" onClick={toggleMenu} className="block px-3 py-2 text-base font-semibold text-primary dark:text-white">{t('contact')}</NavLink>
-                
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col space-y-3 px-3">
-                  {user ? (
-                    <>
-                      <Link 
-                        to={user.is_staff ? "/admin" : "/dashboard"} 
-                        onClick={toggleMenu}
-                        className="text-center py-2 bg-primary text-white rounded-lg font-bold"
-                      >
-                        Dashboard
-                      </Link>
-                      <button onClick={() => { logout(); toggleMenu(); }} className="text-center py-2 text-red-500 font-bold border border-red-500 rounded-lg">
-                        Logout
-                      </button>
-                    </>
-                  ) : (
-                    <Link 
-                      to="/login" 
-                      onClick={toggleMenu}
-                      className="text-center py-2 border border-primary dark:border-white text-primary dark:text-white rounded-lg font-bold"
-                    >
-                      {t('portal')}
-                    </Link>
-                  )}
-                  <button 
-                    onClick={() => { setIsAppointmentOpen(true); toggleMenu(); }}
-                    className="text-center py-2.5 bg-gold text-white rounded-lg font-bold shadow"
-                  >
-                    {t('bookAppointment')}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-
-      {/* Appointment Booking Modal */}
-      <AnimatePresence>
-        {isAppointmentOpen && (
-          <div className="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-slate-900 rounded-3xl p-8 max-w-md w-full border border-slate-100 dark:border-slate-800 shadow-premium relative"
-            >
-              <button 
-                onClick={() => setIsAppointmentOpen(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-655 p-1 rounded-full hover:bg-slate-100"
-              >
-                ✕
-              </button>
-              
-              <h3 className="text-lg font-bold font-serif text-primary dark:text-white mb-2 flex items-center">
-                <Calendar className="w-5 h-5 text-gold mr-2" /> Book a Consultation Slot
-              </h3>
-              <p className="text-xs text-slate-500 mb-6">Select your date and time slot to align a call with our Chief Architect.</p>
-              
-              <form onSubmit={handleBookAppointment} className="space-y-4 text-xs">
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase mb-1">Your Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={appointmentForm.name}
-                    onChange={(e) => setAppointmentForm({ ...appointmentForm, name: e.target.value })}
-                    className="w-full px-3 py-2 border rounded dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    value={appointmentForm.phone}
-                    onChange={(e) => setAppointmentForm({ ...appointmentForm, phone: e.target.value })}
-                    className="w-full px-3 py-2 border rounded dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase mb-1">Date</label>
-                    <input
-                      type="date"
-                      required
-                      value={appointmentForm.date}
-                      onChange={(e) => setAppointmentForm({ ...appointmentForm, date: e.target.value })}
-                      className="w-full px-3 py-2 border rounded dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase mb-1">Time Slot</label>
-                    <select
-                      value={appointmentForm.slot}
-                      onChange={(e) => setAppointmentForm({ ...appointmentForm, slot: e.target.value })}
-                      className="w-full px-3 py-2 border rounded dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                    >
-                      <option value="10:00 AM">10:00 AM</option>
-                      <option value="11:30 AM">11:30 AM</option>
-                      <option value="02:00 PM">02:00 PM</option>
-                      <option value="04:30 PM">04:30 PM</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-450 uppercase mb-1">Meeting Type</label>
-                  <select
-                    value={appointmentForm.type}
-                    onChange={(e) => setAppointmentForm({ ...appointmentForm, type: e.target.value })}
-                    className="w-full px-3 py-2 border rounded dark:bg-slate-800 dark:border-slate-700 focus:outline-none"
-                  >
-                    <option value="Design Consultation">Design Consultation</option>
-                    <option value="Construction Estimate">Construction Estimate</option>
-                    <option value="Vastu Compliance Call">Vastu Compliance Call</option>
-                  </select>
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full py-3 bg-gold hover:bg-gold-dark text-white rounded font-bold uppercase tracking-wider transition-colors shadow"
-                >
-                  Book Slot Now
-                </button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      )}
     </>
   );
 };
 
 export default Navbar;
-
-

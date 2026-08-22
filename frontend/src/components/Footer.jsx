@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import Logo from './ui/Logo';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Footer = () => {
@@ -16,13 +18,8 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-9 h-9 rounded bg-white flex items-center justify-center font-serif text-slate-900 text-lg font-bold border border-gold">
-                A
-              </div>
-              <span className="font-serif text-lg font-bold tracking-wider text-white">
-                ABACUS<span className="text-gold"> HOMES</span>
-              </span>
+            <div className="mb-4">
+              <Logo variant="light" height="h-12" />
             </div>
             <p className="text-sm text-slate-400 mb-6 leading-relaxed">
               We design, plan, build, and deliver premium homes, commercial landmarks, and beautiful interiors. Inspired by engineering excellence.

@@ -107,19 +107,19 @@ def seed_database():
     # 3. Projects
     projects_data = [
         {
-            "name": "The Grand Abacus Oasis",
+            "name": "The Malabar Courtyard Villa",
             "category": "residential",
-            "description": "A luxury 5-bedroom villa featuring glassmorphism elements, double-height ceilings, a private infinity pool, and integrated automation systems.",
-            "location": "Kochi, Kerala",
+            "description": "A luxury 5-bedroom Kerala contemporary villa featuring open central nadumuttam courtyards, teakwood sit-out verandas, sloping terracotta roofs, and integrated home automation.",
+            "location": "Kakkanad, Kochi",
             "area": "6,500 Sq.Ft.",
             "duration": "14 Months",
             "budget": "Rs. 3.5 Crore",
             "services_used": "Architectural Design, Turnkey Construction, Interior Design, Smart Home Integration, Landscape Design",
-            "before_image": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
-            "after_image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80",
+            "before_image": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+            "after_image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
             "client_name": "Dr. Sandeep Kurup",
             "client_rating": 5,
-            "client_review": "Abacus Homes delivered my dream villa exactly as visualized. Their engineering team is extremely professional and transparent about pricing.",
+            "client_review": "Abacus Homes delivered my dream Kerala villa exactly as visualized. Their engineering team is extremely professional and transparent about pricing.",
             "progress_timeline": [
                 {"stage": "Planning & Approval", "status": "Completed", "date": "Jan 2025"},
                 {"stage": "Foundation & Substructure", "status": "Completed", "date": "Mar 2025"},
@@ -129,79 +129,83 @@ def seed_database():
             ]
         },
         {
-            "name": "Elite Corporate Hub",
-            "category": "commercial",
-            "description": "Modern environment-friendly 4-story commercial building built with sustainable materials and featuring a double-glazed facade.",
-            "location": "Indiranagar, Bangalore",
-            "area": "18,000 Sq.Ft.",
-            "duration": "18 Months",
-            "budget": "Rs. 9.8 Crore",
-            "services_used": "Commercial Construction, Structural Design, Panchayat & Municipality Approval, False Ceiling",
-            "before_image": "https://images.unsplash.com/photo-1541976590-713941fbc796?auto=format&fit=crop&w=800&q=80",
-            "after_image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-            "client_name": "Elixir Technologies",
+            "name": "The Heritage Teak & Laterite Villa",
+            "category": "residential",
+            "description": "Traditional Kerala architectural fusion villa with clay tile roof slopes, exposed laterite stone masonry, teakwood charupadi sit-outs, and tropical landscaping.",
+            "location": "Beach Road, Kozhikode",
+            "area": "4,800 Sq.Ft.",
+            "duration": "12 Months",
+            "budget": "Rs. 2.8 Crore",
+            "services_used": "Residential Construction, Architectural Elevation, Panchayat Approval, Teak Woodwork",
+            "before_image": "https://images.unsplash.com/photo-1541976590-713941fbc796?auto=format&fit=crop&w=1200&q=80",
+            "after_image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
+            "client_name": "Er. Manoj Varma",
             "client_rating": 5,
-            "client_review": "Incredible commercial build. Handed over 2 weeks ahead of schedule. Build quality and steelwork is state-of-the-art.",
+            "client_review": "The traditional Kerala aesthetic fused with modern luxury interiors is breathtaking. Superb build quality!",
             "progress_timeline": [
                 {"stage": "Planning & Soil Testing", "status": "Completed", "date": "May 2024"},
                 {"stage": "Excavation & Piling", "status": "Completed", "date": "Aug 2024"},
-                {"stage": "Concrete Core Casting", "status": "Completed", "date": "Jan 2025"},
-                {"stage": "Facade & Glass Glazing", "status": "Completed", "date": "Jul 2025"},
-                {"stage": "MEP Handover", "status": "Completed", "date": "Nov 2025"}
+                {"stage": "Laterite & Concrete Core", "status": "Completed", "date": "Jan 2025"},
+                {"stage": "Terracotta Roof & Teakwork", "status": "Completed", "date": "Jul 2025"},
+                {"stage": "Final Handover", "status": "Completed", "date": "Nov 2025"}
             ]
         },
         {
-            "name": "Minimalist Penthouse Renovation",
+            "name": "Vembanad Backwater Haven",
             "category": "interior",
-            "description": "Full redesign of a duplex penthouse. High-end woodwork, custom lighting, marble installations, and Italian modular kitchen.",
-            "location": "MG Road, Bangalore",
-            "area": "3,200 Sq.Ft.",
-            "duration": "5 Months",
-            "budget": "Rs. 1.2 Crore",
-            "services_used": "Interior Design, Smart Home Integration, False Ceiling, Tile Installation",
-            "before_image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80",
-            "after_image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+            "description": "Full interior architectural design of a luxury waterfront villa. Natural teak wood acoustic slat walls, custom false ceilings, marble waterfall island kitchen, and ambient coved lighting.",
+            "location": "Kumarakom, Kottayam",
+            "area": "3,800 Sq.Ft.",
+            "duration": "6 Months",
+            "budget": "Rs. 1.6 Crore",
+            "services_used": "Interior Design, Smart Lighting, Modular Kitchen, Wooden Flooring",
+            "before_image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
+            "after_image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
             "client_name": "Rohan & Priya Mehta",
             "client_rating": 5,
-            "client_review": "The interior designers at Abacus transformed our dated penthouse into a gorgeous, sleek, modern sanctuary. Highly recommended!",
+            "client_review": "The interior designers at Abacus transformed our villa into a serene, modern tropical sanctuary. Highly recommended!",
             "progress_timeline": [
                 {"stage": "Interior Space Planning", "status": "Completed", "date": "Oct 2025"},
                 {"stage": "Demolition & Wiring", "status": "Completed", "date": "Nov 2025"},
-                {"stage": "Cabinetry & False Ceiling", "status": "Completed", "date": "Jan 2026"},
+                {"stage": "Teak Cabinetry & Ceilings", "status": "Completed", "date": "Jan 2026"},
                 {"stage": "Furniture & Finishes", "status": "Completed", "date": "Feb 2026"}
             ]
         }
     ]
 
     for pd in projects_data:
-        Project.objects.get_or_create(name=pd['name'], defaults=pd)
+        Project.objects.update_or_create(name=pd['name'], defaults=pd)
     print("Projects seeded.")
 
     # 4. Gallery Items
     gallery_data = [
-        {"title": "Luxury Villa Facade", "category": "luxury_homes", "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Minimalist Living Area", "category": "interiors", "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Modern Duplex Villa", "category": "modern_villas", "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Lush Back Garden", "category": "landscaping", "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Concrete Pouring Frame", "category": "construction_progress", "image": "https://images.unsplash.com/photo-1541976590-713941fbc796?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Completed Residential Suite", "category": "completed_projects", "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Luxury Master Bedroom", "category": "interiors", "image": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80"},
-        {"title": "Contemporary Exterior", "category": "luxury_homes", "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80"}
+        {"title": "Contemporary Kerala Villa Facade", "category": "luxury_homes", "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Warm Teak Living & Acoustic Slat Wall", "category": "interiors", "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Traditional Kerala Gabled Villa", "category": "modern_villas", "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Tropical Courtyard Water Garden", "category": "landscaping", "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Structural Column & Roof Casting", "category": "construction_progress", "image": "https://images.unsplash.com/photo-1541976590-713941fbc796?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Waterfront Tropical Residence", "category": "completed_projects", "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Luxury Teak Master Bedroom Suite", "category": "interiors", "image": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Open-Plan Dining & Island Kitchen", "category": "interiors", "image": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Kerala Sit-Out Veranda with Charupadi", "category": "luxury_homes", "image": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Wayanad Rainforest Modernist Estate", "category": "modern_villas", "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Bespoke Modular Kitchen with Quartz Island", "category": "interiors", "image": "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1200&q=80"},
+        {"title": "Villa Elevation at Twilight", "category": "completed_projects", "image": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80"}
     ]
 
     for gd in gallery_data:
-        GalleryItem.objects.get_or_create(title=gd['title'], category=gd['category'], defaults=gd)
+        GalleryItem.objects.update_or_create(title=gd['title'], category=gd['category'], defaults=gd)
     print("Gallery items seeded.")
 
     # 5. Floor Plans
     floorplans_data = [
-        {"title": "Standard 3BHK Layout", "category": "3BHK", "bedrooms": 3, "bathrooms": 3, "area": "1,850 Sq.Ft.", "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
-        {"title": "Premium 4BHK Duplex Plan", "category": "duplex", "bedrooms": 4, "bathrooms": 5, "area": "3,400 Sq.Ft.", "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
-        {"title": "Luxury Villa Layout with Pool", "category": "luxury_villas", "bedrooms": 5, "bathrooms": 6, "area": "5,200 Sq.Ft.", "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"}
+        {"title": "3BHK Traditional Nalukettu Layout", "category": "3BHK", "bedrooms": 3, "bathrooms": 3, "area": "1,850 Sq.Ft.", "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+        {"title": "4BHK Contemporary Tropical Duplex Villa", "category": "duplex", "bedrooms": 4, "bathrooms": 5, "area": "3,400 Sq.Ft.", "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+        {"title": "5BHK Luxury Courtyard Villa with Pool", "category": "luxury_villas", "bedrooms": 5, "bathrooms": 6, "area": "5,200 Sq.Ft.", "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80", "pdf_url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"}
     ]
 
     for fd in floorplans_data:
-        FloorPlan.objects.get_or_create(title=fd['title'], category=fd['category'], defaults=fd)
+        FloorPlan.objects.update_or_create(title=fd['title'], category=fd['category'], defaults=fd)
     print("Floor plans seeded.")
 
     # 6. Blog Posts
