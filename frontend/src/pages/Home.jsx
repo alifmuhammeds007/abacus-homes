@@ -73,23 +73,17 @@ const Home = () => {
 
       {/* 
         ========================================================================
-        CINEMATIC 3D SCROLL EXPERIENCE (6 SEQUENTIAL SCENES)
-        Tuned to 280vh for comfortable, fatigue-free scrolling
+        HERO SECTION WITH VIDEO BACKGROUND & OVERLAY
         ========================================================================
       */}
       <div 
-        ref={scrollContainerRef} 
         id="home"
-        className="relative h-[280vh] w-full"
+        className="relative h-screen w-full overflow-hidden"
       >
-        {/* Sticky Fullscreen 3D WebGL Canvas Viewport */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <ExperienceCanvas 
-            scrollProgress={scrollProgress} 
-            scrollProgressRef={scrollProgressRef}
-            onOpenVideoModal={() => setIsVideoOpen(true)}
-          />
-        </div>
+        <ExperienceCanvas 
+          scrollProgress={scrollProgress} 
+          onOpenVideoModal={() => setIsVideoOpen(true)}
+        />
       </div>
 
       {/* 
