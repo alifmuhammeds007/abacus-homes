@@ -14,7 +14,7 @@ const StudioGround = () => {
   );
 };
 
-const ExperienceCanvas = ({ scrollProgress = 0, scrollProgressRef }) => {
+const ExperienceCanvas = ({ scrollProgress = 0, scrollProgressRef, onOpenVideoModal }) => {
   const [isMobile, setIsMobile] = useState(false);
   const fallbackRef = useRef(scrollProgress);
   const activeProgressRef = scrollProgressRef || fallbackRef;
@@ -151,7 +151,7 @@ const ExperienceCanvas = ({ scrollProgress = 0, scrollProgressRef }) => {
       </Canvas>
 
       {/* Synchronized 2D Typography & HUD Overlay Matching Reference */}
-      <SceneOverlayText scrollProgress={scrollProgress} />
+      <SceneOverlayText scrollProgress={scrollProgress} onOpenVideoModal={onOpenVideoModal} />
 
     </div>
   );

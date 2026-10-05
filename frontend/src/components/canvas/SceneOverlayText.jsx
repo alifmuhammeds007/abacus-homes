@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Play } from 'lucide-react';
 
 const scenes = [
   {
@@ -53,7 +53,7 @@ const scenes = [
   }
 ];
 
-const SceneOverlayText = ({ scrollProgress = 0 }) => {
+const SceneOverlayText = ({ scrollProgress = 0, onOpenVideoModal }) => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -122,31 +122,44 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
               </p>
 
               {currentScene.sceneNumber === "01" && (
-                <form 
-                  onSubmit={handleBrochureSubmit}
-                  className="pointer-events-auto flex items-center bg-white border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)]"
-                >
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your mail"
-                    required
-                    className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-[#2596be]/20 shrink-0"
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <form 
+                    onSubmit={handleBrochureSubmit}
+                    className="pointer-events-auto flex-1 flex items-center bg-white border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)]"
                   >
-                    {isSubmitted ? (
-                      <span className="flex items-center gap-1.5 text-white font-semibold">
-                        <CheckCircle2 className="w-4 h-4" /> Sent!
-                      </span>
-                    ) : (
-                      'Get a Brochure'
-                    )}
-                  </button>
-                </form>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your mail"
+                      required
+                      className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-[#2596be]/20 shrink-0"
+                    >
+                      {isSubmitted ? (
+                        <span className="flex items-center gap-1.5 text-white font-semibold">
+                          <CheckCircle2 className="w-4 h-4" /> Sent!
+                        </span>
+                      ) : (
+                        'Get a Brochure'
+                      )}
+                    </button>
+                  </form>
+
+                  {onOpenVideoModal && (
+                    <button
+                      type="button"
+                      onClick={onOpenVideoModal}
+                      className="pointer-events-auto flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-105 active:scale-95 border border-slate-700 shrink-0"
+                    >
+                      <Play className="w-3.5 h-3.5 text-[#2596be] fill-[#2596be]" />
+                      <span>Video Tour</span>
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </motion.div>

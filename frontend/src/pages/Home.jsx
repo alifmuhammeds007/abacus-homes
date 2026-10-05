@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { User, Calendar, Calculator, ChevronDown } from 'lucide-react';
+import { User, Calendar, Calculator, ChevronDown, Play } from 'lucide-react';
 
 import ExperienceCanvas from '../components/canvas/ExperienceCanvas';
 import ConsultationModal from '../components/ui/ConsultationModal';
+import HeroVideoModal from '../components/ui/HeroVideoModal';
 import AboutSection from '../components/sections/AboutSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import ProjectsSection from '../components/sections/ProjectsSection';
@@ -18,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const scrollContainerRef = useRef(null);
   const scrollProgressRef = useRef(0);
   const lastStateProgress = useRef(0);
@@ -63,6 +65,12 @@ const Home = () => {
         onClose={() => setIsConsultationOpen(false)}
       />
 
+      {/* Hero Video Tour Modal */}
+      <HeroVideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+      />
+
       {/* 
         ========================================================================
         CINEMATIC 3D SCROLL EXPERIENCE (6 SEQUENTIAL SCENES)
@@ -79,6 +87,7 @@ const Home = () => {
           <ExperienceCanvas 
             scrollProgress={scrollProgress} 
             scrollProgressRef={scrollProgressRef}
+            onOpenVideoModal={() => setIsVideoOpen(true)}
           />
         </div>
       </div>
@@ -86,11 +95,21 @@ const Home = () => {
       {/* 
         ========================================================================
         DESKTOP FLOATING QUICK-ACCESS DOCK
-        Provides instant 1-click access to Portal, Book Slot, Calculator, and Skip
+        Provides instant 1-click access to Portal, Book Slot, Calculator, Video Tour, and Skip
         ========================================================================
       */}
       <div className="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-2 bg-white/90 backdrop-blur-xl border border-slate-200/90 p-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
         
+        {/* Video Tour Button */}
+        <button
+          onClick={() => setIsVideoOpen(true)}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-sans text-slate-800 hover:text-[#2596be] hover:bg-slate-100 transition-colors font-medium"
+          title="Watch Architectural Video Tour"
+        >
+          <Play className="w-3.5 h-3.5 text-[#2596be] fill-[#2596be]" />
+          <span>Video Tour</span>
+        </button>
+
         {/* Book Consultation Slot */}
         <button
           onClick={() => setIsConsultationOpen(true)}
