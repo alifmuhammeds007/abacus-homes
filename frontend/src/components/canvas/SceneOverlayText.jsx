@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
 const scenes = [
@@ -36,7 +36,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
         
         {/* Top Eyebrow */}
         <div className="mb-2 sm:mb-3">
-          <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#38bdf8] uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+          <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#2596be] uppercase">
             {currentScene.welcome}
           </p>
         </div>
@@ -47,20 +47,20 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-black text-white leading-[1.05] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-black text-slate-900 leading-[1.05] tracking-tight">
             {currentScene.title[0]} <br />
-            <span className="text-[#38bdf8] drop-shadow-[0_4px_24px_rgba(56,189,248,0.4)]">{currentScene.title[1]}</span>
+            <span className="text-[#2596be]">{currentScene.title[1]}</span>
           </h1>
 
           {/* DESKTOP ONLY: Subtitle & Brochure pill */}
           <div className="hidden lg:block max-w-lg mt-5">
-            <p className="text-slate-100 text-sm sm:text-base leading-relaxed mb-6 font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-medium">
               {currentScene.subtitle}
             </p>
 
             <form 
               onSubmit={handleBrochureSubmit}
-              className="pointer-events-auto flex items-center bg-slate-950/60 backdrop-blur-xl border border-white/20 rounded-full p-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.4)] max-w-md transition-all focus-within:border-[#38bdf8] focus-within:shadow-[0_0_25px_rgba(56,189,248,0.3)]"
+              className="pointer-events-auto flex items-center bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)]"
             >
               <input
                 type="email"
@@ -68,11 +68,11 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder-slate-300 focus:outline-none"
+                className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
               />
               <button
                 type="submit"
-                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-[#2596be]/30 shrink-0"
+                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-[#2596be]/20 shrink-0"
               >
                 {isSubmitted ? (
                   <span className="flex items-center gap-1.5 text-white font-semibold">
@@ -102,15 +102,15 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-slate-950/70 backdrop-blur-xl p-4 rounded-2xl border border-white/15 shadow-2xl"
+            className="bg-white/95 backdrop-blur-xl p-4 rounded-2xl border border-slate-200/90 shadow-lg"
           >
-            <p className="text-slate-100 text-xs sm:text-sm leading-relaxed mb-3 font-medium drop-shadow-md">
+            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-3 font-medium">
               {currentScene.subtitle}
             </p>
 
             <form 
               onSubmit={handleBrochureSubmit}
-              className="flex items-center bg-slate-900/80 border border-white/20 rounded-full p-1 focus-within:border-[#38bdf8] transition-all"
+              className="flex items-center bg-slate-50 border border-slate-200 rounded-full p-1 focus-within:border-[#2596be] transition-all"
             >
               <input
                 type="email"
@@ -118,11 +118,11 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="flex-1 bg-transparent px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none min-w-0"
+                className="flex-1 bg-transparent px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none min-w-0"
               />
               <button
                 type="submit"
-                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-semibold text-xs px-4 py-1.5 rounded-full transition-all shadow-md shrink-0"
+                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-semibold text-xs px-4 py-1.5 rounded-full transition-all shadow-sm shrink-0"
               >
                 {isSubmitted ? 'Sent!' : 'Get Brochure'}
               </button>
@@ -132,12 +132,12 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
 
         {/* Floating Bottom Metrics Capsule Bar */}
         <div className="w-full flex justify-center pointer-events-auto">
-          <div className="bg-slate-950/85 backdrop-blur-xl border border-white/15 text-white px-4 sm:px-10 lg:px-12 py-3 rounded-xl sm:rounded-full shadow-[0_16px_40px_rgba(0,0,0,0.5)] flex items-center justify-between gap-2 sm:gap-8 md:gap-14 max-w-4xl w-full">
+          <div className="bg-slate-900 text-white px-4 sm:px-10 lg:px-12 py-3 rounded-xl sm:rounded-full shadow-[0_16px_40px_rgba(0,0,0,0.18)] flex items-center justify-between gap-2 sm:gap-8 md:gap-14 max-w-4xl w-full">
             
             {/* Stat 1 */}
             <div className="text-center flex-1">
               <p className="text-base sm:text-xl font-sans font-extrabold text-white tracking-tight">40K+</p>
-              <p className="text-[9px] sm:text-[11px] text-slate-300 capitalize">Customers</p>
+              <p className="text-[9px] sm:text-[11px] text-slate-400 capitalize">Customers</p>
             </div>
 
             <div className="w-px h-5 sm:h-7 bg-white/20" />
@@ -145,7 +145,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
             {/* Stat 2 */}
             <div className="text-center flex-1">
               <p className="text-base sm:text-xl font-sans font-extrabold text-white tracking-tight">20K+</p>
-              <p className="text-[9px] sm:text-[11px] text-slate-300 capitalize">Registrations</p>
+              <p className="text-[9px] sm:text-[11px] text-slate-400 capitalize">Registrations</p>
             </div>
 
             <div className="w-px h-5 sm:h-7 bg-white/20" />
@@ -153,7 +153,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
             {/* Stat 3 */}
             <div className="text-center flex-1">
               <p className="text-base sm:text-xl font-sans font-extrabold text-white tracking-tight">15K+</p>
-              <p className="text-[9px] sm:text-[11px] text-slate-300 capitalize">Units Sold</p>
+              <p className="text-[9px] sm:text-[11px] text-slate-400 capitalize">Units Sold</p>
             </div>
 
             <div className="w-px h-5 sm:h-7 bg-white/20" />
@@ -161,7 +161,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
             {/* Stat 4 */}
             <div className="text-center flex-1">
               <p className="text-base sm:text-xl font-sans font-extrabold text-white tracking-tight">23K+</p>
-              <p className="text-[9px] sm:text-[11px] text-slate-300 capitalize">Projects Handed Over</p>
+              <p className="text-[9px] sm:text-[11px] text-slate-400 capitalize">Projects Handed Over</p>
             </div>
 
           </div>
