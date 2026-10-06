@@ -3,21 +3,23 @@ import SceneOverlayText from './SceneOverlayText';
 
 const ExperienceCanvas = ({ scrollProgress = 0 }) => {
   return (
-    <div className="relative w-full h-full bg-slate-950 overflow-hidden select-none">
+    <div className="relative w-full h-full bg-slate-950 overflow-hidden select-none flex items-center justify-center">
       
-      {/* 85% Visible Full-bleed Hero Background Video (Perfectly responsive on mobile & desktop) */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-[0.85] pointer-events-none"
-      >
-        <source src="/videos/hero-tour.mp4" type="video/mp4" />
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
+      {/* 85% Visible Background Video (Fully visible in mobile view via object-contain & full cover on desktop) */}
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain md:object-cover object-center opacity-[0.85] pointer-events-none transition-all duration-300"
+        >
+          <source src="/videos/hero-tour.mp4" type="video/mp4" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-      {/* Elegant Contrast Gradient Overlay for High Text Visibility */}
+      {/* Elegant Contrast Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-black/50 z-0 pointer-events-none" />
 
       {/* Subtle Background Architectural Brand Watermark */}
