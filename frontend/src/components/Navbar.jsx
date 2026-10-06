@@ -37,18 +37,22 @@ const Navbar = () => {
         <nav 
           className={`max-w-7xl mx-auto w-full rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-500 pointer-events-auto flex items-center justify-between border ${
             isScrolled 
-              ? 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]' 
-              : 'bg-white/85 backdrop-blur-md border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)]'
+              ? 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)] text-slate-900' 
+              : 'bg-slate-950/80 backdrop-blur-xl border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.4)] text-white'
           }`}
         >
           
           {/* 1. BRAND LOGO -> Goes to Home Page */}
           <Link to="/" className="flex items-center group shrink-0 py-0.5">
-            <Logo variant="dark" height="h-8 sm:h-9" />
+            <Logo variant={isScrolled ? 'dark' : 'light'} height="h-8 sm:h-9" />
           </Link>
 
           {/* 2. DEDICATED PAGE NAVIGATION LINKS (CENTER) */}
-          <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 border border-slate-200/80 px-2.5 py-1 rounded-full">
+          <div className={`hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-full border transition-colors ${
+            isScrolled
+              ? 'bg-slate-100/80 border-slate-200/80'
+              : 'bg-slate-900/60 border-white/15'
+          }`}>
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
@@ -57,8 +61,8 @@ const Navbar = () => {
                   to={link.path}
                   className={`px-3 py-1 rounded-full text-[11px] font-sans font-semibold tracking-wider transition-all duration-200 ${
                     isActive
-                      ? 'bg-white text-[#2596be] font-bold shadow-sm'
-                      : 'text-slate-700 hover:text-[#2596be] hover:bg-white/60'
+                      ? isScrolled ? 'bg-white text-[#2596be] font-bold shadow-sm' : 'bg-white/20 text-white font-bold shadow-sm'
+                      : isScrolled ? 'text-slate-700 hover:text-[#2596be] hover:bg-white/60' : 'text-slate-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {link.label}
@@ -75,23 +79,27 @@ const Navbar = () => {
               to="/login"
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-sans font-semibold border transition-all duration-200 ${
                 location.pathname === '/login' || location.pathname === '/dashboard' || location.pathname === '/client-portal'
-                  ? 'bg-[#2596be]/10 text-[#2596be] border-[#2596be]/40'
-                  : 'text-slate-700 hover:text-[#2596be] border-slate-200 hover:border-[#2596be]/40 bg-slate-100/80 hover:bg-white'
+                  ? 'bg-[#2596be]/20 text-[#38bdf8] border-[#2596be]/40'
+                  : isScrolled 
+                    ? 'text-slate-700 hover:text-[#2596be] border-slate-200 hover:border-[#2596be]/40 bg-slate-100/80 hover:bg-white'
+                    : 'text-slate-200 hover:text-white border-white/20 hover:border-white/40 bg-white/10 hover:bg-white/20'
               }`}
               title="Client Project Portal"
             >
-              <User className="w-3.5 h-3.5 text-[#2596be]" />
+              <User className="w-3.5 h-3.5 text-[#38bdf8]" />
               <span>Portal</span>
             </Link>
 
             {/* Language Switcher Dual Pill */}
-            <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 text-[10px] font-mono">
+            <div className={`flex items-center border rounded-full p-0.5 text-[10px] font-mono ${
+              isScrolled ? 'bg-slate-100 border-slate-200' : 'bg-slate-900/80 border-white/15'
+            }`}>
               <button
                 onClick={() => setLanguage('en')}
                 className={`px-2.5 py-0.5 rounded-full transition-all ${
                   language === 'en'
-                    ? 'bg-white text-slate-900 font-bold shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
+                    ? isScrolled ? 'bg-white text-slate-900 font-bold shadow-sm' : 'bg-white/20 text-white font-bold'
+                    : isScrolled ? 'text-slate-500 hover:text-slate-900' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 EN
@@ -100,8 +108,8 @@ const Navbar = () => {
                 onClick={() => setLanguage('ml')}
                 className={`px-2.5 py-0.5 rounded-full transition-all ${
                   language === 'ml'
-                    ? 'bg-white text-slate-900 font-bold shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
+                    ? isScrolled ? 'bg-white text-slate-900 font-bold shadow-sm' : 'bg-white/20 text-white font-bold'
+                    : isScrolled ? 'text-slate-500 hover:text-slate-900' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 ML
@@ -111,7 +119,7 @@ const Navbar = () => {
             {/* Book Consultation Slot Button -> Goes to /consultation */}
             <Link
               to="/consultation"
-              className={`px-4 py-2 text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 shadow-md shadow-[#2596be]/20 flex items-center gap-2 hover:scale-105 active:scale-95 bg-[#2596be] hover:bg-[#1d7fa2]`}
+              className="px-4 py-2 text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 shadow-md shadow-[#2596be]/30 flex items-center gap-2 hover:scale-105 active:scale-95 bg-[#2596be] hover:bg-[#1d7fa2]"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Book A Slot</span>
@@ -122,7 +130,9 @@ const Navbar = () => {
           <div className="flex items-center gap-2 sm:hidden">
             <Link
               to="/login"
-              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-[#2596be] text-xs"
+              className={`p-2 rounded-xl border text-xs ${
+                isScrolled ? 'bg-slate-100 border-slate-200 text-[#2596be]' : 'bg-slate-900/80 border-white/20 text-[#38bdf8]'
+              }`}
               title="Client Portal"
             >
               <User className="w-4 h-4" />
