@@ -14,6 +14,7 @@ const ExperienceCanvas = ({ scrollProgress = 0 }) => {
           playsInline
           className="w-full h-full object-contain md:object-cover object-center opacity-100 pointer-events-none transition-all duration-300"
         >
+          <source src="/videos/abacushero.mp4" type="video/mp4" />
           <source src="/videos/hero-tour.mp4" type="video/mp4" />
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
