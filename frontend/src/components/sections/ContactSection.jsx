@@ -62,7 +62,7 @@ const ContactSection = () => {
                   <div>
                     <b className="text-sm font-sans font-bold text-slate-900 block">Direct Inquiries</b>
                     <p className="text-xs text-slate-500 mt-0.5 font-mono">
-                      +91 98470 00000 / +91 484 2900000
+                      +91 9946021717 / +91 98467 62343
                     </p>
                   </div>
                 </div>
@@ -122,7 +122,7 @@ const ContactSection = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <h3 className="text-xl font-sans font-bold text-[#3b2314] mb-1">
-                    Book Architectural Consultation
+                    Transmit an Inquiry
                   </h3>
                   <p className="text-xs text-slate-500">
                     Share your plot dimensions, location, and project vision.
@@ -146,14 +146,19 @@ const ContactSection = () => {
 
                   <div>
                     <label className="block text-xs font-sans font-semibold text-slate-700 uppercase tracking-wider mb-2">
-                      Phone Number *
+                      Phone Number (10 Digits) *
                     </label>
                     <input
                       type="tel"
                       required
+                      maxLength={10}
+                      pattern="[0-9]{10}"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+91 98470 00000"
+                      onChange={(e) => {
+                        const numericVal = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        setFormData({ ...formData, phone: numericVal });
+                      }}
+                      placeholder="e.g. 9946021717"
                       className="w-full bg-[#fafafa] border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#2596be] transition-colors font-sans"
                     />
                   </div>

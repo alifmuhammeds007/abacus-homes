@@ -89,14 +89,18 @@ const FreeConsultation = () => {
                   {errors.name && <span className="text-[10px] text-red-500 mt-1">Name is required</span>}
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Phone Number *</label>
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Phone Number (10 Digits) *</label>
                   <input 
                     type="tel" 
-                    placeholder="+91 98470 00000"
-                    {...register('phone', { required: true })}
+                    maxLength={10}
+                    placeholder="e.g. 9946021717"
+                    {...register('phone', { 
+                      required: 'Phone number is required',
+                      pattern: { value: /^[0-9]{10}$/, message: 'Must be a 10-digit number' }
+                    })}
                     className="w-full text-xs px-4 py-3 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none"
                   />
-                  {errors.phone && <span className="text-[10px] text-red-500 mt-1">Phone is required</span>}
+                  {errors.phone && <span className="text-[10px] text-red-500 mt-1">{errors.phone.message || '10-digit phone required'}</span>}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Email Address *</label>

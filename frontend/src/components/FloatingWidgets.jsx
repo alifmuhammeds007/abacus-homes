@@ -77,22 +77,24 @@ const FloatingWidgets = () => {
 
         {/* Call Now Widget */}
         <a
-          href="tel:+919876543210"
+          href="tel:+919946021717"
           className="p-3.5 bg-primary text-white rounded-full hover:bg-primary-dark hover:-translate-y-1 transition-all shadow-lg flex items-center justify-center border border-gold"
           aria-label="Call Abacus Homes"
         >
           <Phone className="w-5 h-5 text-gold" />
         </a>
 
-        {/* WhatsApp Chat widget trigger */}
-        <button
-          onClick={() => setIsChatOpen(!isChatOpen)}
+        {/* WhatsApp Instant Chat Widget */}
+        <a
+          href="https://wa.me/919946021717"
+          target="_blank"
+          rel="noreferrer"
           className="p-3.5 bg-green-600 text-white rounded-full hover:bg-green-700 hover:-translate-y-1 transition-all shadow-lg flex items-center justify-center relative"
-          aria-label="Toggle Live Chat"
+          aria-label="WhatsApp Instant Chat"
         >
           <MessageCircle className="w-6 h-6" />
           <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border border-white animate-pulse"></span>
-        </button>
+        </a>
       </div>
 
       {/* Live Chat Simulator Drawer */}

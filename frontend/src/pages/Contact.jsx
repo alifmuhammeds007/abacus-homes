@@ -71,8 +71,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-[#3b2314] uppercase tracking-wider mb-1">Direct Inquiries</h3>
-                  <p className="text-slate-500 mt-0.5 font-mono">+91 98470 00000</p>
-                  <p className="text-slate-500 font-mono">+91 484 2900000</p>
+                  <p className="text-slate-500 mt-0.5 font-mono">+91 9946021717</p>
+                  <p className="text-slate-500 font-mono">+91 98467 62343</p>
                 </div>
               </div>
 
@@ -101,7 +101,7 @@ const Contact = () => {
               {/* WhatsApp CTA */}
               <div className="pt-4 border-t border-slate-100">
                 <a 
-                  href="https://wa.me/919847000000" 
+                  href="https://wa.me/919946021717" 
                   target="_blank" 
                   rel="noreferrer"
                   className="w-full py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-sm"
@@ -143,15 +143,19 @@ const Contact = () => {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
-                        Phone Number *
+                        Phone Number (10 Digits) *
                       </label>
                       <input 
                         type="tel" 
-                        {...register('phone', { required: true })}
-                        placeholder="+91 98470 00000" 
+                        maxLength={10}
+                        {...register('phone', { 
+                          required: 'Phone number is required',
+                          pattern: { value: /^[0-9]{10}$/, message: 'Must be a 10-digit number' }
+                        })}
+                        placeholder="e.g. 9946021717" 
                         className="w-full text-xs px-4 py-3 bg-[#fafafa] border border-slate-200 rounded-xl focus:border-[#2596be] focus:outline-none"
                       />
-                      {errors.phone && <span className="text-[10px] text-red-500 mt-1">Phone is required</span>}
+                      {errors.phone && <span className="text-[10px] text-red-500 mt-1">{errors.phone.message || '10-digit phone required'}</span>}
                     </div>
                   </div>
 
