@@ -14,9 +14,6 @@ const AboutSection = () => {
           
           {/* Left Column: Heading & Core Philosophy */}
           <div className="lg:col-span-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-[#2596be] text-xs font-mono tracking-widest uppercase mb-4 shadow-sm">
-              01 // STUDIO MANIFESTO
-            </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-[#3b2314] leading-[1.08] mb-6 tracking-tight">
               WE TURN IDEAS INTO <span className="text-[#2596be] font-bold">STRUCTURES.</span>

@@ -55,9 +55,6 @@ const ServicesSection = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[#2596be] text-xs font-mono tracking-widest uppercase mb-4 shadow-sm">
-              02 // CORE DISCIPLINES
-            </div>
             <h2 className="text-3xl sm:text-5xl font-sans font-black text-[#3b2314] tracking-tight">
               ARCHITECTURAL & <span className="text-[#2596be] font-bold">ENGINEERING SERVICES.</span>
             </h2>

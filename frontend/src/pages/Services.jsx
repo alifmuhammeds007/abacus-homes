@@ -30,9 +30,6 @@ const Services = () => {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-[#2596be] text-xs font-mono tracking-widest uppercase mb-3 shadow-xs">
-            02 // DISCIPLINE OFFERINGS
-          </div>
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-[#3b2314] tracking-tight mb-3">
             COMPREHENSIVE <span className="text-[#2596be]">SERVICES.</span>
           </h1>

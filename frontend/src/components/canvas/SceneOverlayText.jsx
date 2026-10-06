@@ -2,20 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
-const scenes = [
-  {
-    sceneNumber: "01",
-    welcome: "WELCOME TO ABACUS HOMES...",
-    title: ["FIND PERFECT", "HOME"],
-    subtitle: "The compassion and commitment to create spaces that resonate with you; gets us going. We invite you to discover the pinnacle of modern designs.",
-  }
-];
-
 const SceneOverlayText = ({ scrollProgress = 0 }) => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const currentScene = scenes[0];
 
   const handleBrochureSubmit = (e) => {
     e.preventDefault();
@@ -30,14 +19,14 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
     <div className="absolute inset-0 pointer-events-none z-20 flex flex-col justify-between p-4 sm:p-8 lg:p-14 overflow-hidden">
       
       {/* ========================================================================= */}
-      {/* TOP TITLE AREA                                                           */}
+      {/* CENTERED HERO TITLE & CONTENT AREA                                       */}
       {/* ========================================================================= */}
-      <div className="pt-24 sm:pt-28 lg:pt-20">
+      <div className="pt-24 sm:pt-28 lg:pt-24 flex flex-col items-center justify-center text-center max-w-3xl mx-auto w-full">
         
         {/* Top Eyebrow */}
-        <div className="mb-2 sm:mb-3">
-          <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#2596be] uppercase">
-            {currentScene.welcome}
+        <div className="mb-3">
+          <p className="text-xs sm:text-sm font-bold tracking-[0.25em] text-[#2596be] uppercase font-sans">
+            WELCOME TO ABACUS HOMES...
           </p>
         </div>
 
@@ -46,21 +35,21 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col items-center text-center w-full"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-black text-slate-900 leading-[1.05] tracking-tight">
-            {currentScene.title[0]} <br />
-            <span className="text-[#2596be]">{currentScene.title[1]}</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-slate-900 leading-[1.1] tracking-tight uppercase text-center mb-4">
+            FIND PERFECT <span className="text-[#2596be]">HOME</span>
           </h1>
 
           {/* DESKTOP ONLY: Subtitle & Brochure pill */}
-          <div className="hidden lg:block max-w-lg mt-5">
-            <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-medium">
-              {currentScene.subtitle}
+          <div className="hidden lg:flex flex-col items-center text-center max-w-xl w-full">
+            <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-medium text-center">
+              The compassion and commitment to create spaces that resonate with you; gets us going. We invite you to discover the pinnacle of modern designs.
             </p>
 
             <form 
               onSubmit={handleBrochureSubmit}
-              className="pointer-events-auto flex items-center bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)]"
+              className="pointer-events-auto flex items-center bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] w-full max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)] mx-auto"
             >
               <input
                 type="email"
@@ -68,7 +57,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
+                className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none text-left"
               />
               <button
                 type="submit"
@@ -89,7 +78,7 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
       </div>
 
       {/* MIDDLE GAP */}
-      <div className="flex-1 min-h-[100px] pointer-events-none" />
+      <div className="flex-1 min-h-[60px] pointer-events-none" />
 
       {/* ========================================================================= */}
       {/* BOTTOM AREA                                                               */}
@@ -97,15 +86,15 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
       <div className="flex flex-col gap-4 pb-2">
         
         {/* MOBILE ONLY: Subtitle & Email Brochure Pill */}
-        <div className="block lg:hidden pointer-events-auto">
+        <div className="block lg:hidden pointer-events-auto max-w-md mx-auto w-full text-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-white/95 backdrop-blur-xl p-4 rounded-2xl border border-slate-200/90 shadow-lg"
+            className="bg-white/95 backdrop-blur-xl p-4 rounded-2xl border border-slate-200/90 shadow-lg text-center"
           >
-            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-3 font-medium">
-              {currentScene.subtitle}
+            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-3 font-medium text-center">
+              The compassion and commitment to create spaces that resonate with you; gets us going. We invite you to discover the pinnacle of modern designs.
             </p>
 
             <form 
