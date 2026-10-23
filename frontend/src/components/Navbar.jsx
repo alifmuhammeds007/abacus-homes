@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, User, Calendar, Calculator, Phone } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import Logo from './ui/Logo';
 
 const Navbar = () => {
-  const { language, setLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const location = useLocation();
+  const isHeroBlended = location.pathname === '/' && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,22 +32,33 @@ const Navbar = () => {
   return (
     <>
       {/* Master Floating Luxury Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-4 px-3 sm:px-6 lg:px-8 transition-all duration-300 pointer-events-none">
+      <header className={`fixed top-0 left-0 right-0 z-50 pt-3 sm:pt-4 px-3 sm:px-6 lg:px-8 transition-all duration-500 pointer-events-none ${
+        isHeroBlended ? 'md:bg-gradient-to-b md:from-black/60 md:via-black/20 md:to-transparent md:pb-8' : ''
+      }`}>
         <nav 
-          className={`max-w-7xl mx-auto w-full rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-500 pointer-events-auto flex items-center justify-between border ${
-            isScrolled 
-              ? 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)] text-slate-900' 
-              : 'bg-[#f8fafc]/90 backdrop-blur-xl border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)] text-slate-900'
+          className={`max-w-7xl mx-auto w-full rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-500 pointer-events-auto flex items-center justify-between ${
+            isHeroBlended 
+              ? 'bg-sky-100/95 border border-sky-200/80 shadow-xs md:bg-black/20 md:hover:bg-black/30 md:border-transparent md:shadow-none text-slate-900 md:text-white' 
+              : 'bg-sky-100/95 backdrop-blur-2xl border border-sky-200/90 shadow-[0_12px_40px_rgba(37,150,190,0.12)] text-slate-900 md:bg-white/95 md:border-slate-200/90 md:shadow-[0_12px_40px_rgba(0,0,0,0.08)]'
           }`}
         >
           
           {/* 1. BRAND LOGO -> Goes to Home Page */}
-          <Link to="/" className="flex items-center group shrink-0 py-0.5">
-            <Logo variant="dark" height="h-8 sm:h-9" />
+          <Link to="/" className="flex items-center group shrink-0">
+            <span className="hidden md:flex items-center">
+              <Logo variant={isHeroBlended ? 'light' : 'dark'} />
+            </span>
+            <span className="flex md:hidden items-center">
+              <Logo variant="dark" />
+            </span>
           </Link>
 
           {/* 2. DEDICATED PAGE NAVIGATION LINKS (CENTER) */}
-          <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-full border transition-colors bg-slate-100/90 border-slate-200/90">
+          <div className={`hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-full border transition-colors ${
+            isHeroBlended
+              ? 'bg-black/25 border-white/15'
+              : 'bg-slate-100/90 border-slate-200/90'
+          }`}>
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
@@ -57,8 +67,12 @@ const Navbar = () => {
                   to={link.path}
                   className={`px-3 py-1 rounded-full text-[11px] font-sans font-semibold tracking-wider transition-all duration-200 ${
                     isActive
-                      ? 'bg-white text-[#2596be] font-bold shadow-xs border border-slate-200/60'
-                      : 'text-slate-700 hover:text-[#2596be] hover:bg-white/60'
+                      ? isHeroBlended
+                        ? 'bg-white/20 text-white font-bold shadow-xs border border-white/25'
+                        : 'bg-white text-[#2596be] font-bold shadow-xs border border-slate-200/60'
+                      : isHeroBlended
+                        ? 'text-white/85 hover:text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+                        : 'text-slate-700 hover:text-[#2596be] hover:bg-white/60'
                   }`}
                 >
                   {link.label}
@@ -75,38 +89,16 @@ const Navbar = () => {
               to="/login"
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-sans font-semibold border transition-all duration-200 ${
                 location.pathname === '/login' || location.pathname === '/dashboard' || location.pathname === '/client-portal'
-                  ? 'bg-[#2596be]/10 text-[#2596be] border-[#2596be]/40'
-                  : 'text-slate-700 hover:text-[#2596be] border-slate-200 hover:border-[#2596be]/40 bg-slate-100/80 hover:bg-white'
+                  ? 'bg-[#2596be]/20 text-[#38bdf8] border-[#2596be]/40'
+                  : isHeroBlended
+                    ? 'text-white/90 hover:text-white border-white/20 hover:border-white/40 bg-white/10 hover:bg-white/20 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+                    : 'text-slate-700 hover:text-[#2596be] border-slate-200 hover:border-[#2596be]/40 bg-slate-100/80 hover:bg-white'
               }`}
               title="Client Project Portal"
             >
-              <User className="w-3.5 h-3.5 text-[#2596be]" />
+              <User className={`w-3.5 h-3.5 ${isHeroBlended ? 'text-[#38bdf8]' : 'text-[#2596be]'}`} />
               <span>Portal</span>
             </Link>
-
-            {/* Language Switcher Dual Pill */}
-            <div className="flex items-center border rounded-full p-0.5 text-[10px] font-mono bg-slate-100 border-slate-200">
-              <button
-                onClick={() => setLanguage('en')}
-                className={`px-2.5 py-0.5 rounded-full transition-all ${
-                  language === 'en'
-                    ? 'bg-white text-slate-900 font-bold shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setLanguage('ml')}
-                className={`px-2.5 py-0.5 rounded-full transition-all ${
-                  language === 'ml'
-                    ? 'bg-white text-slate-900 font-bold shadow-xs'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                ML
-              </button>
-            </div>
 
             {/* Book Consultation Slot Button -> Goes to /consultation */}
             <Link
@@ -122,22 +114,15 @@ const Navbar = () => {
           <div className="flex items-center gap-2 sm:hidden">
             <Link
               to="/login"
-              className="p-2 rounded-xl border text-xs bg-slate-100 border-slate-200 text-[#2596be]"
+              className="p-2 rounded-xl border text-xs bg-white/80 border-sky-200/90 text-[#2596be] hover:bg-white transition-colors shadow-xs"
               title="Client Portal"
             >
               <User className="w-4 h-4" />
             </Link>
 
             <button
-              onClick={() => setLanguage(language === 'en' ? 'ml' : 'en')}
-              className="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-mono text-slate-700"
-            >
-              {language === 'en' ? 'മല' : 'EN'}
-            </button>
-
-            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#2596be] active:scale-95 transition-transform"
+              className="p-2 rounded-xl border border-sky-200/90 bg-white/80 text-slate-700 hover:text-[#2596be] hover:bg-white active:scale-95 transition-all shadow-xs"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -149,9 +134,9 @@ const Navbar = () => {
 
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white/98 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 sm:hidden">
+        <div className="fixed inset-0 z-50 bg-gradient-to-b from-sky-50 via-sky-50/98 to-white backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 sm:hidden">
           <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-mono text-[#2596be] uppercase tracking-widest px-3 mb-1">
+            <span className="text-[10px] font-mono text-[#2596be] uppercase tracking-widest px-3 mb-1 font-semibold">
               Page Directory
             </span>
             {navLinks.map((link) => {
@@ -163,8 +148,8 @@ const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-xl font-sans text-base font-bold flex justify-between items-center transition-colors ${
                     isActive
-                      ? 'bg-[#2596be]/10 text-[#2596be] border border-[#2596be]/30'
-                      : 'text-slate-800 hover:bg-slate-50 hover:text-[#2596be]'
+                      ? 'bg-[#2596be] text-white shadow-md shadow-[#2596be]/25'
+                      : 'text-slate-800 hover:bg-white hover:text-[#2596be]'
                   }`}
                 >
                   <span>{link.label}</span>
@@ -174,11 +159,11 @@ const Navbar = () => {
             })}
           </div>
 
-          <div className="pt-6 border-t border-slate-200 flex flex-col gap-3">
+          <div className="pt-6 border-t border-sky-200/80 flex flex-col gap-3">
             <Link
               to="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl bg-white border border-sky-200 text-slate-800 font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-sky-50 transition-colors shadow-xs"
             >
               <User className="w-4 h-4 text-[#2596be]" />
               <span>Access Client Portal</span>
@@ -187,7 +172,7 @@ const Navbar = () => {
             <Link
               to="/consultation"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3.5 bg-[#2596be] text-white font-sans font-bold text-xs uppercase tracking-widest text-center rounded-xl shadow-lg shadow-[#2596be]/20 flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-[#2596be] text-white font-sans font-bold text-xs uppercase tracking-widest text-center rounded-xl shadow-lg shadow-[#2596be]/25 flex items-center justify-center gap-2 hover:bg-[#1d7fa2] transition-colors"
             >
               <Calendar className="w-4 h-4" />
               <span>Book Consultation Slot</span>

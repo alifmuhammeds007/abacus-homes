@@ -37,19 +37,19 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center text-center w-full"
         >
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-slate-900 leading-[1.1] tracking-tight uppercase text-center mb-4">
-            FIND PERFECT <span className="text-[#2596be]">HOME</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-slate-900 md:text-white leading-[1.1] tracking-tight uppercase text-center mb-4 md:drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]">
+            FIND PERFECT <span className="text-[#2596be] md:text-[#38bdf8]">HOME</span>
           </h1>
 
           {/* DESKTOP ONLY: Subtitle & Brochure pill */}
           <div className="hidden lg:flex flex-col items-center text-center max-w-xl w-full">
-            <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-medium text-center">
+            <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-6 font-medium text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
               The compassion and commitment to create spaces that resonate with you; gets us going. We invite you to discover the pinnacle of modern designs.
             </p>
 
             <form 
               onSubmit={handleBrochureSubmit}
-              className="pointer-events-auto flex items-center bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] w-full max-w-md transition-all focus-within:border-[#2596be] focus-within:shadow-[0_8px_30px_rgba(37,150,190,0.15)] mx-auto"
+              className="pointer-events-auto flex items-center bg-black/40 border border-white/20 rounded-full p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.3)] w-full max-w-md transition-all focus-within:border-[#38bdf8] focus-within:shadow-[0_0_25px_rgba(56,189,248,0.25)] mx-auto"
             >
               <input
                 type="email"
@@ -57,11 +57,11 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="flex-1 bg-transparent px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none text-left"
+                className="flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder-white/50 focus:outline-none text-left"
               />
               <button
                 type="submit"
-                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-[#2596be]/20 shrink-0"
+                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-[#2596be]/30 shrink-0"
               >
                 {isSubmitted ? (
                   <span className="flex items-center gap-1.5 text-white font-semibold">
@@ -78,28 +78,28 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
       </div>
 
       {/* MIDDLE GAP */}
-      <div className="flex-1 min-h-[60px] pointer-events-none" />
+      <div className="flex-1 min-h-[40px] pointer-events-none" />
 
       {/* ========================================================================= */}
       {/* BOTTOM AREA                                                               */}
       {/* ========================================================================= */}
-      <div className="flex flex-col gap-4 pb-2">
+      <div className="flex flex-col gap-3 pb-2">
         
-        {/* MOBILE ONLY: Subtitle & Email Brochure Pill */}
-        <div className="block lg:hidden pointer-events-auto max-w-md mx-auto w-full text-center">
+        {/* MOBILE ONLY: Subtitle & Email Brochure Pill (Adapted for mobile white background) */}
+        <div className="block lg:hidden pointer-events-auto max-w-sm mx-auto w-full text-center px-2">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-white/95 backdrop-blur-xl p-4 rounded-2xl border border-slate-200/90 shadow-lg text-center"
+            className="flex flex-col items-center text-center"
           >
-            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-3 font-medium text-center">
-              The compassion and commitment to create spaces that resonate with you; gets us going. We invite you to discover the pinnacle of modern designs.
+            <p className="text-slate-600 text-xs leading-relaxed mb-2.5 font-medium max-w-xs">
+              The compassion and commitment to create spaces that resonate with you.
             </p>
 
             <form 
               onSubmit={handleBrochureSubmit}
-              className="flex items-center bg-slate-50 border border-slate-200 rounded-full p-1 focus-within:border-[#2596be] transition-all"
+              className="flex items-center bg-slate-100/90 border border-slate-200/90 rounded-full p-1 focus-within:border-[#2596be] transition-all w-full max-w-xs shadow-xs"
             >
               <input
                 type="email"
@@ -111,9 +111,9 @@ const SceneOverlayText = ({ scrollProgress = 0 }) => {
               />
               <button
                 type="submit"
-                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-semibold text-xs px-4 py-1.5 rounded-full transition-all shadow-sm shrink-0"
+                className="bg-[#2596be] hover:bg-[#1d7fa2] active:scale-95 text-white font-semibold text-xs px-3.5 py-1.5 rounded-full transition-all shadow-sm shrink-0"
               >
-                {isSubmitted ? 'Sent!' : 'Get Brochure'}
+                {isSubmitted ? 'Sent!' : 'Brochure'}
               </button>
             </form>
           </motion.div>

@@ -29,10 +29,10 @@ const Home = () => {
         onClose={() => setIsConsultationOpen(false)}
       />
 
-      {/* Hero Section with 85% Visible Background Video */}
+      {/* Hero Section with 100% Visible Full-Size Background Video */}
       <div 
         id="home"
-        className="relative h-screen w-full overflow-hidden"
+        className="relative h-screen min-h-[100dvh] h-[100dvh] w-full overflow-hidden bg-white md:bg-slate-950"
       >
         <ExperienceCanvas />
       </div>

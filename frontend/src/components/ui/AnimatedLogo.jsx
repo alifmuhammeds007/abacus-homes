@@ -5,7 +5,7 @@ const AnimatedLogo = ({
   variant = 'light', // 'light' for dark backgrounds, 'dark' for light backgrounds
   layout = 'horizontal', // 'horizontal', 'stacked', 'icon-only'
   className = '',
-  iconSize = 'h-10 w-10 sm:h-11 sm:w-11',
+  iconSize = 'h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9',
   animated = true,
 }) => {
   const isDarkBg = variant === 'light'; // Light text for dark background
@@ -187,20 +187,20 @@ const AnimatedLogo = ({
 
   // Default: Horizontal Layout (For Navbar & Headers)
   return (
-    <div className={`flex items-center gap-3 group cursor-pointer select-none ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-2.5 md:gap-3 group cursor-pointer select-none ${className}`}>
       {IconMark}
       <div className="flex flex-col justify-center">
         <div className="flex items-baseline">
-          <span className={`font-serif font-extrabold text-base sm:text-lg lg:text-xl tracking-[0.20em] uppercase leading-none ${textColor} transition-colors group-hover:text-gold-light`}>
+          <span className={`font-serif font-extrabold text-sm sm:text-base lg:text-xl tracking-[0.18em] uppercase leading-none ${textColor} transition-colors group-hover:text-gold-light`}>
             ABACUS
           </span>
         </div>
-        <div className="flex items-center gap-1.5 mt-1">
-          <span className="w-3 sm:w-4 h-[1px] bg-gold/60" />
-          <span className={`text-[8px] sm:text-[9px] font-serif font-bold tracking-[0.32em] uppercase leading-none ${subTextColor}`}>
+        <div className="flex items-center gap-1 sm:gap-1.5 mt-0.5 sm:mt-1">
+          <span className="w-2.5 sm:w-4 h-[1px] bg-gold/60" />
+          <span className={`text-[7px] sm:text-[8px] md:text-[9px] font-serif font-bold tracking-[0.28em] uppercase leading-none ${subTextColor}`}>
             HOMES
           </span>
-          <span className="w-3 sm:w-4 h-[1px] bg-gold/60" />
+          <span className="w-2.5 sm:w-4 h-[1px] bg-gold/60" />
         </div>
       </div>
     </div>
